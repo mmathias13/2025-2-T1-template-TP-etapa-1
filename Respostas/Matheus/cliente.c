@@ -1,6 +1,6 @@
 #include "cliente.h"
 
-struct cliente{
+struct Cliente{
 
     char nomeCompleto[101];
     char cpf[15];
@@ -13,5 +13,28 @@ struct cliente{
     char email[51];
     int numeroProdutosComprados;
     int numeroAvaliacoesRealizadas;
-    tProduto **produtos;
 };
+
+tCliente* criaCliente(char* nome, char* cpf, char* data, char* telefone, char* endereco, char* email, char* username, char* senha, char* cartao){
+
+    tCliente *c = (tCliente*)malloc(sizeof(tCliente));
+
+    c->nomeCompleto = nome;
+
+    return c;
+}
+
+void liberaCliente(tCliente* c){
+    free(c);
+}
+
+char* getCpfCliente(tCliente* c){
+    return c->cpf;
+}
+char* getEmailCliente(tCliente* c){
+    return c->email;
+}
+
+char* getNomeCliente(tCliente* c){
+    return c->nomeCompleto;
+}

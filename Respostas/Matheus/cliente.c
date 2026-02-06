@@ -1,4 +1,7 @@
 #include "cliente.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 struct Cliente{
 
@@ -17,9 +20,28 @@ struct Cliente{
 
 tCliente* criaCliente(char* nome, char* cpf, char* data, char* telefone, char* endereco, char* email, char* username, char* senha, char* cartao){
 
+    //Alocação de memória para novo cliente
     tCliente *c = (tCliente*)malloc(sizeof(tCliente));
+    if (c == NULL){
+        printf("Problema na alocação de memória de CLIENTE!");
+        return NULL;
+    }
 
-    c->nomeCompleto = nome;
+    //Como são strings, devem ser copiadas com strcpy
+    strcpy(c->nomeCompleto, nome);
+    strcpy(c->cpf, cpf);
+    strcpy(c->dataNascimento, data);
+    strcpy(c->telefone, telefone);
+    strcpy(c->endereco, endereco);
+    strcpy(c->email, email);
+    strcpy(c->nomeUsuario, username);
+    strcpy(c->senha, senha);
+    strcpy(c->numeroCartao, cartao);
+
+    //Sempre serão inicializados com 0
+    c->numeroAvaliacoesRealizadas = 0;
+    c->numeroProdutosComprados = 0;
+
 
     return c;
 }

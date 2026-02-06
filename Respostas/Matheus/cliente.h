@@ -7,8 +7,8 @@ tCliente* criaCliente(char* nome, char* cpf, char* data, char* telefone, char* e
 
 void liberaCliente(tCliente* c);
 
-char* getCpfCliente();
-char* getEmailCliente();
-char* getNomeCliente();
+char* getCpfCliente(tCliente* c);
+char* getEmailCliente(tCliente* c);
+char* getNomeCliente(tCliente* c);
 
 #endif

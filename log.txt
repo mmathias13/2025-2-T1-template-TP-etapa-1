@@ -1,0 +1,600 @@
+- Arquivo de configuração encontrado!
+ - Arquivos header necessários do professor existem na pasta Includes
+ - Arquivos objetos necessários do professor existem na pasta Gabarito-obj.
+
+#######################################
+ALUNO: Matheus
+#######################################
+
+CRIANDO O DIRETÓRIO DE RESULTADO PARA Matheus:
+ - Diretório Resultados/Matheus criado com sucesso!
+ - Diretório Resultados/Matheus/main criado com sucesso!
+ - Diretório Resultados/Matheus/completo criado com sucesso!
+ - Diretório Resultados/Matheus/avaliacao criado com sucesso!
+ - Diretório Resultados/Matheus/produto criado com sucesso!
+ - Diretório Resultados/Matheus/industrializado criado com sucesso!
+ - Arquivos criados: ok!
+
+CHECKANDO OS ARQUIVOS DO ALUNO:
+ - Arquivo esperado 'Respostas/Matheus/avaliacao.c' encontrado!
+ - Arquivo esperado 'Respostas/Matheus/avaliacao.h' encontrado!
+ - Arquivo esperado 'Respostas/Matheus/industrializado.c' encontrado!
+ - Arquivo esperado 'Respostas/Matheus/industrializado.h' encontrado!
+ - Arquivo esperado 'Respostas/Matheus/main.c' encontrado!
+ - Arquivo esperado 'Respostas/Matheus/produto.c' encontrado!
+ - Arquivo esperado 'Respostas/Matheus/produto.h' encontrado!
+ - Arquivos esperados enviados: Ok!
+
+COPIANDO OS ARQUIVOS PARA A PASTA DE RESULTADO DO ALUNO:
+ - Pasta main:
+ - Copiando os Casos de teste para a pasta Resultados/Matheus/main
+ - Copiando os Includes/avaliacao.h Includes/industrializado.h Includes/produto.h do professor para a pasta Resultados/Matheus/main
+ - Copiando os Includes/*.o do professor para a pasta Resultados/Matheus/main
+	 - Removendo o main.o do professor da pasta Resultados/Matheus/main
+	 - Copiando o Respostas/Matheus/main.c do aluno para a pasta Resultados/Matheus/main
+ - Pasta completo:
+ - Copiando os Casos de teste para a pasta Resultados/Matheus/completo
+	 - Copiando os Respostas/Matheus/avaliacao.c do aluno para a pasta Resultados/Matheus/completo
+	 - Copiando os Respostas/Matheus/avaliacao.h do aluno para a pasta Resultados/Matheus/completo
+	 - Copiando os Respostas/Matheus/industrializado.c do aluno para a pasta Resultados/Matheus/completo
+	 - Copiando os Respostas/Matheus/industrializado.h do aluno para a pasta Resultados/Matheus/completo
+	 - Copiando os Respostas/Matheus/main.c do aluno para a pasta Resultados/Matheus/completo
+	 - Copiando os Respostas/Matheus/produto.c do aluno para a pasta Resultados/Matheus/completo
+	 - Copiando os Respostas/Matheus/produto.h do aluno para a pasta Resultados/Matheus/completo
+ - Pasta avaliacao:
+ - Copiando os Casos de teste para a pasta Resultados/Matheus/avaliacao
+ - Copiando os Includes/avaliacao.h Includes/industrializado.h Includes/produto.h do professor para a pasta Resultados/Matheus/avaliacao
+ - Copiando os Includes/*.o do professor para a pasta Resultados/Matheus/avaliacao
+	 - Removendo o avaliacao.o do professor da pasta Resultados/Matheus/avaliacao
+	 - Copiando o Respostas/Matheus/avaliacao.c do aluno para a pasta Resultados/Matheus/avaliacao
+ - Pasta produto:
+ - Copiando os Casos de teste para a pasta Resultados/Matheus/produto
+ - Copiando os Includes/avaliacao.h Includes/industrializado.h Includes/produto.h do professor para a pasta Resultados/Matheus/produto
+ - Copiando os Includes/*.o do professor para a pasta Resultados/Matheus/produto
+	 - Removendo o produto.o do professor da pasta Resultados/Matheus/produto
+	 - Copiando o Respostas/Matheus/produto.c do aluno para a pasta Resultados/Matheus/produto
+ - Pasta industrializado:
+ - Copiando os Casos de teste para a pasta Resultados/Matheus/industrializado
+ - Copiando os Includes/avaliacao.h Includes/industrializado.h Includes/produto.h do professor para a pasta Resultados/Matheus/industrializado
+ - Copiando os Includes/*.o do professor para a pasta Resultados/Matheus/industrializado
+	 - Removendo o industrializado.o do professor da pasta Resultados/Matheus/industrializado
+	 - Copiando o Respostas/Matheus/industrializado.c do aluno para a pasta Resultados/Matheus/industrializado
+ - Copiando Arquivos Extras do Aluno:
+	 - Copiando Respostas/Matheus/cliente.c para Resultados/Matheus/main
+	 - Copiando Respostas/Matheus/cliente.c para Resultados/Matheus/completo
+	 - Copiando Respostas/Matheus/fornecedor.c para Resultados/Matheus/main
+	 - Copiando Respostas/Matheus/fornecedor.c para Resultados/Matheus/completo
+	 - Copiando Respostas/Matheus/ingrediente.c para Resultados/Matheus/main
+	 - Copiando Respostas/Matheus/ingrediente.c para Resultados/Matheus/completo
+	 - Copiando Respostas/Matheus/loja.c para Resultados/Matheus/main
+	 - Copiando Respostas/Matheus/loja.c para Resultados/Matheus/completo
+	 - Copiando Respostas/Matheus/sistema.c para Resultados/Matheus/main
+	 - Copiando Respostas/Matheus/sistema.c para Resultados/Matheus/completo
+	 - Copiando Respostas/Matheus/utils.c para Resultados/Matheus/main
+	 - Copiando Respostas/Matheus/utils.c para Resultados/Matheus/completo
+ - Copiando Respostas/Matheus/cliente.h para Resultados/Matheus/main
+ - Copiando Respostas/Matheus/cliente.h para Resultados/Matheus/completo
+ - Copiando Respostas/Matheus/fornecedor.h para Resultados/Matheus/main
+ - Copiando Respostas/Matheus/fornecedor.h para Resultados/Matheus/completo
+ - Copiando Respostas/Matheus/ingrediente.h para Resultados/Matheus/main
+ - Copiando Respostas/Matheus/ingrediente.h para Resultados/Matheus/completo
+ - Copiando Respostas/Matheus/loja.h para Resultados/Matheus/main
+ - Copiando Respostas/Matheus/loja.h para Resultados/Matheus/completo
+ - Copiando Respostas/Matheus/sistema.h para Resultados/Matheus/main
+ - Copiando Respostas/Matheus/sistema.h para Resultados/Matheus/completo
+ - Copiando Respostas/Matheus/utils.h para Resultados/Matheus/main
+ - Copiando Respostas/Matheus/utils.h para Resultados/Matheus/completo
+ - Arquivos copiados: ok!
+
+COMPILANDO OS ARQUIVOS NA PASTA DE RESULTADO DO ALUNO:
+	 - Compilando a pasta main do aluno, gerando os .o's
+	 - Compilação dos arquivos do aluno na pasta main ok!
+	 - Arquivo de output gerado: Resultados/Matheus/main/result_compilation.txt
+	 - Compilando a pasta completo do aluno, gerando os .o's
+	 - Compilação dos arquivos do aluno na pasta completo ok!
+	 - Arquivo de output gerado: Resultados/Matheus/completo/result_compilation.txt
+	 - Compilando a pasta avaliacao do aluno, gerando os .o's
+	 - Compilação dos arquivos do aluno na pasta avaliacao ok!
+	 - Arquivo de output gerado: Resultados/Matheus/avaliacao/result_compilation.txt
+	 - Compilando a pasta produto do aluno, gerando os .o's
+	 - Compilação dos arquivos do aluno na pasta produto ok!
+	 - Arquivo de output gerado: Resultados/Matheus/produto/result_compilation.txt
+	 - Compilando a pasta industrializado do aluno, gerando os .o's
+	 - Compilação dos arquivos do aluno na pasta industrializado ok!
+	 - Arquivo de output gerado: Resultados/Matheus/industrializado/result_compilation.txt
+ - Arquivos Compilados: ok!
+
+LINKANDO OS ARQUIVOS COMPILADOS:
+ - Pasta main:
+ - Gerando o binário prog linkando com o(s) arquivo(s) main/*.o
+ - Arquivos Linkados: Ok! Binário prog gerado com sucesso.
+ - Arquivo de output gerado: Resultados/Matheus/main/result_linking.txt
+ - Pasta completo:
+ - Gerando o binário prog linkando com o(s) arquivo(s) completo/*.o
+ - Arquivos Linkados: Ok! Binário prog gerado com sucesso.
+ - Arquivo de output gerado: Resultados/Matheus/completo/result_linking.txt
+ - Pasta avaliacao:
+ - Gerando o binário prog linkando com o(s) arquivo(s) avaliacao/*.o
+ - Arquivos Linkados: Ok! Binário prog gerado com sucesso.
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/result_linking.txt
+ - Pasta produto:
+ - Gerando o binário prog linkando com o(s) arquivo(s) produto/*.o
+ - Arquivos Linkados: Ok! Binário prog gerado com sucesso.
+ - Arquivo de output gerado: Resultados/Matheus/produto/result_linking.txt
+ - Pasta industrializado:
+ - Gerando o binário prog linkando com o(s) arquivo(s) industrializado/*.o
+ - Arquivos Linkados: Ok! Binário prog gerado com sucesso.
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/result_linking.txt
+
+EXECUTANDO O VALGRIND EM CADA CASO:
+ - Pasta main / Caso 1:
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/1/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 15, frees: 15, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta main / Caso 10:
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/10/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 16, frees: 16, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta main / Caso 11:
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/11/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 13, frees: 13, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta main / Caso 2:
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/2/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 6, frees: 6, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta main / Caso 3:
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/3/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 6, frees: 6, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta main / Caso 4:
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/4/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 7, frees: 7, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta main / Caso 5:
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/5/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 6, frees: 6, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta main / Caso 6:
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/6/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 13, frees: 13, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta main / Caso 7:
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/7/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 17, frees: 17, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta main / Caso 8:
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/8/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 15, frees: 15, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta main / Caso 9:
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/9/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 32, frees: 32, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Nota para a pasta main (máximo 7.0) - 4.50 de 9.90 - 45.00% de 7.0: 3.15.
+ -----
+ - Pasta completo / Caso 1:
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/1/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 15, frees: 15, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta completo / Caso 10:
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/10/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 16, frees: 16, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta completo / Caso 11:
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/11/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 13, frees: 13, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta completo / Caso 2:
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/2/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 6, frees: 6, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta completo / Caso 3:
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/3/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 6, frees: 6, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta completo / Caso 4:
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/4/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 7, frees: 7, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta completo / Caso 5:
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/5/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 6, frees: 6, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta completo / Caso 6:
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/6/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 13, frees: 13, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta completo / Caso 7:
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/7/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 17, frees: 17, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta completo / Caso 8:
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/8/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 15, frees: 15, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta completo / Caso 9:
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/9/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 32, frees: 32, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Nota para a pasta completo (máximo 0.0) - 4.50 de 9.90 - 45.00% de 0.0: 0.
+ -----
+ - Pasta avaliacao / Caso 1:
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/1/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 172, frees: 172, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta avaliacao / Caso 10:
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/10/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 169, frees: 169, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta avaliacao / Caso 11:
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/11/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 62, frees: 62, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta avaliacao / Caso 2:
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/2/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 28, frees: 28, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta avaliacao / Caso 3:
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/3/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 21, frees: 21, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta avaliacao / Caso 4:
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/4/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 40, frees: 40, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta avaliacao / Caso 5:
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/5/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 21, frees: 21, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta avaliacao / Caso 6:
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/6/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 78, frees: 78, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta avaliacao / Caso 7:
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/7/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 111, frees: 111, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta avaliacao / Caso 8:
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/8/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 170, frees: 170, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta avaliacao / Caso 9:
+ - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/9/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 274, frees: 274, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Nota para a pasta avaliacao (máximo 0.5) - 9.90 de 9.90 - 100.00% de 0.5: .50.
+ -----
+ - Pasta produto / Caso 1:
+ - Arquivo de output gerado: Resultados/Matheus/produto/Casos/1/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 180, frees: 180, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta produto / Caso 10:
+ - Arquivo de output gerado: Resultados/Matheus/produto/Casos/10/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 169, frees: 169, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta produto / Caso 11:
+ - Arquivo de output gerado: Resultados/Matheus/produto/Casos/11/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 62, frees: 62, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta produto / Caso 2:
+ - Arquivo de output gerado: Resultados/Matheus/produto/Casos/2/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 28, frees: 28, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta produto / Caso 3:
+ - Arquivo de output gerado: Resultados/Matheus/produto/Casos/3/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 21, frees: 21, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta produto / Caso 4:
+ - Arquivo de output gerado: Resultados/Matheus/produto/Casos/4/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 40, frees: 40, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta produto / Caso 5:
+ - Arquivo de output gerado: Resultados/Matheus/produto/Casos/5/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 21, frees: 21, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta produto / Caso 6:
+ - Arquivo de output gerado: Resultados/Matheus/produto/Casos/6/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 78, frees: 78, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta produto / Caso 7:
+ - Arquivo de output gerado: Resultados/Matheus/produto/Casos/7/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 111, frees: 111, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta produto / Caso 8:
+ - Arquivo de output gerado: Resultados/Matheus/produto/Casos/8/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 176, frees: 176, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta produto / Caso 9:
+ - Arquivo de output gerado: Resultados/Matheus/produto/Casos/9/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 278, frees: 278, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Nota para a pasta produto (máximo 2.0) - 7.20 de 9.90 - 72.00% de 2.0: 1.44.
+ -----
+ - Pasta industrializado / Caso 1:
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/1/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 180, frees: 180, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta industrializado / Caso 10:
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/10/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 169, frees: 169, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta industrializado / Caso 11:
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/11/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 62, frees: 62, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta industrializado / Caso 2:
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/2/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 28, frees: 28, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta industrializado / Caso 3:
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/3/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 21, frees: 21, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta industrializado / Caso 4:
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/4/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 40, frees: 40, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta industrializado / Caso 5:
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/5/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 21, frees: 21, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta industrializado / Caso 6:
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/6/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 70, frees: 70, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta industrializado / Caso 7:
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/7/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 111, frees: 111, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Pasta industrializado / Caso 8:
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/8/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 89, frees: 89, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Pasta industrializado / Caso 9:
+ - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/9/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 174, frees: 174, errors: 0 | Desconto do valgrind: 0.0%
+ - Comparando saida.txt do aluno e do gabarito...
+	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
+ - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): 0 
+ - Nota para a pasta industrializado (máximo 0.5) - 7.20 de 9.90 - 72.00% de 0.5: .36.
+ -----
+
+#######################################
+RESULTADOS FINAIS
+#######################################
+
+----------------------------------------------------------------------------
+Aluno: Matheus
+ - Arquivos Esperados Corretos: 7 de 7
+ - Pastas Compiladas Corretamente: 5 de 5 
+ - Pastas Linkadas Corretamente: 5 de 5
+ - Teste main
+ - Resultados corretos: 5 de 55
+ - Valgrinds corretos: 11 de 11
+	 - Nota de Matheus para o teste main: 3.15
+ - Teste completo
+ - Resultados corretos: 5 de 55
+ - Valgrinds corretos: 11 de 11
+	 - Nota de Matheus para o teste completo: 0
+ - Teste avaliacao
+ - Resultados corretos: 11 de 55
+ - Valgrinds corretos: 11 de 11
+	 - Nota de Matheus para o teste avaliacao: .50
+ - Teste produto
+ - Resultados corretos: 8 de 55
+ - Valgrinds corretos: 11 de 11
+	 - Nota de Matheus para o teste produto: 1.44
+ - Teste industrializado
+ - Resultados corretos: 8 de 55
+ - Valgrinds corretos: 11 de 11
+	 - Nota de Matheus para o teste industrializado: .36
+ - Nota de Matheus: 0+(.50)+(1.44)+(3.15)+(0)+(.36)
+ - Nota de Matheus: 5.45
+
+----------------------------------------------------------------------------
+
+Arquivo CSV Resultado.csv com os resultados finais foi gerado na pasta raíz!
+
+
+

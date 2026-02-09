@@ -31,6 +31,10 @@ void liberaIngrediente(tIngrediente* i){
     free(i);
 }
 
+void adicionaQuantidadeIngrediente(tIngrediente *i, int qtd){
+    i->quantidadeIngrediente += qtd;
+}
+
 char* getNomeIngrediente(tIngrediente* i){
     return i->nomeIngrediente;
 }

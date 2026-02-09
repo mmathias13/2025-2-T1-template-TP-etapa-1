@@ -2,30 +2,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 struct Avaliacao{
-
     char cpf[15];
     char comentario[201];
     int nota;
 };
 
+static char* trim(char *s) {
+    if (!s) return s;
 
-/*
-Função que cria uma nova avaliação a ser associada a um produto cadastrado por uma loja.
-    Deve-se criar um ponteiro do tipo tAvaliacao, ler os atributos de uma avaliação (comentário
-    e nota) e deve-se associar o CPF passado como parâmetro à avaliação criada. Retorna-se o 
-    ponteiro de tAvaliacao criado.
+    // trim esquerda
+    while (*s && isspace((unsigned char)*s)) s++;
 
-@param char *cpf: CPF do usuário criando a avaliação.
-@return tAvaliacao*: ponteiro para o tipo tAvaliacao criado.
-*/
+    // trim direita
+    char *end = s + strlen(s);
+    while (end > s && isspace((unsigned char)end[-1])) end--;
+    *end = '\0';
+
+    return s;
+}
+
 tAvaliacao * criaAvaliacao(char * cpfUsuario){
     tAvaliacao *a = (tAvaliacao*)malloc(sizeof(tAvaliacao));
     if (a == NULL){
         printf("Erro de alocação na AVALIAÇÃO!");
         return NULL;
     }
+
     strcpy(a->cpf, cpfUsuario);
     a->comentario[0] = '\0';
     a->nota = 0;
@@ -34,64 +39,66 @@ tAvaliacao * criaAvaliacao(char * cpfUsuario){
     char buffer[300];
 
     while (1) {
-    if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
-        // EOF/erro: não dá pra continuar lendo avaliação
-        liberaAvaliacao(a);
-        return NULL;
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            // EOF/erro: não dá pra continuar lendo avaliação
+            liberaAvaliacao(a);
+            return NULL;
+        }
+
+        // remove '\n' se existir
+        buffer[strcspn(buffer, "\n")] = '\0';
+
+        // valida existência de ';'
+        char *sep = strchr(buffer, ';');
+        if (sep == NULL) {
+            printf("AVALIACAO INVALIDA! FAVOR INICIAR A AVALIACAO NOVAMENTE!\n");
+            continue;
+        }
+
+        *sep = '\0';
+        char *coment = trim(buffer);
+        char *notaStr = trim(sep + 1);
+
+        if (coment[0] == '\0' || notaStr[0] == '\0'){
+            printf("AVALIACAO INVALIDA! FAVOR INICIAR A AVALIACAO NOVAMENTE!\n");
+            continue;
+        }
+
+        //converte nota e valida formato
+        char *endptr = NULL;
+        long nota = strtol(notaStr, &endptr, 10);
+
+        //endptr deve parar no fim da string (sem lixo)
+        endptr = trim(endptr);
+        if (*endptr != '\0' || nota < 1 || nota > 5){
+            printf("AVALIACAO INVALIDA! FAVOR INICIAR A AVALIACAO NOVAMENTE!\n");
+            continue;
+        }
+
+        // copia para a struct (arrays fixos)
+        strncpy(a->comentario, coment, sizeof(a->comentario) - 1);
+        a->comentario[sizeof(a->comentario) - 1] = '\0';
+        a->nota = (int)nota;
+
+        break;
     }
-
-    // remove '\n' se existir
-    buffer[strcspn(buffer, "\n")] = '\0';
-
-    // valida existência de ';'
-    char *sep = strchr(buffer, ';');
-    if (sep == NULL) {
-        printf("AVALIACAO INVALIDA! FAVOR INICIAR A AVALIACAO NOVAMENTE!\n");
-        continue;
-    }
-
-    // daqui pra frente você vai separar comentario/nota e validar
-    break;
-}
-    
 
     return a;
 }
 
-/*
-Função que retorna a string comentario da Avaliação passada como parâmetro. 
-
-@param tAvaliacao *a: ponteiro do tipo tAvaliacao que deseja-se recuperar o comentário.
-*/
 char * getComentarioAvaliacao(tAvaliacao * a){
     return a->comentario;
 }
 
-
-/*
-Função que retorna a nota da Avaliação passada como parâmetro.
-
-@param tAvaliacao *a: ponteiro do tipo tAvaliacao que deseja-se recuperar a nota.
-*/
 int getNotaAvaliacao(tAvaliacao * a){
     return a->nota;
 }
 
-/*
-Função que retorna o CPF do cliente que realizou a avaliação.
-
-@param tAvaliacao *a: ponteiro do tipo tAvaliacao que deseja-se recuperar o CPF do cliente.
-*/
 char * getCpfClienteAvaliacao(tAvaliacao * a){
     return a->cpf;
 }
 
-/*
-Função que libera espaço de memória alocado para uma avaliação. Se a avaliação for diferente de NULL,
-    deve-se liberar o espaço alocado para ela.
-
-@param tAvaliacao *a: ponteiro do tipo tAvaliacao a ser liberado.
-*/
 void liberaAvaliacao(tAvaliacao * a){
+    if (!a) return;
     free(a);
 }

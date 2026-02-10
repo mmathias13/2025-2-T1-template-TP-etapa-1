@@ -42,4 +42,12 @@ tStatusSistema adicionaFornecedor(tSistema* s, tFornecedor* f);
 int getNumFornecedoresSistema(tSistema* s);
 tFornecedor* getFornecedorSistema(tSistema* s, int idx);
 
+tProduto* buscaProdutoSistemaPorCod(tSistema* s, char* cod, tLoja** lojaDona);
+
+// INgredientes
+tIngrediente* buscaIngredienteDisponivelPorNome(tSistema* s, char* nome, int qtdNecessaria);
+void consomeIngredientePorNome(tSistema* s, char* nome, int qtd);
+
+
+
 #endif

@@ -12,6 +12,8 @@
 #include "loja.h"
 #include "fornecedor.h"
 #include "ingrediente.h"
+#include "industrializado.h"
+#include "prato.h"
 #include "utils.h"   // trim()
 
 #define LINHA_TAM 1024
@@ -20,6 +22,8 @@
 static int processaCat(tSistema *s, char *linhaCmd);
 static int processaCai(tSistema *s, char *linhaCmd);
 static int processaCoi(tSistema *s, char *linhaCmd);
+static int processaCap(tSistema *s, char *linhaCmd);
+
 
 static void removeQuebraLinha(char *s) {
     if (!s) return;
@@ -111,9 +115,13 @@ static int processaCat(tSistema *s, char *linhaCmd) {
             // ENTRADA: nome; cpf; data; telefone; endereco; username; cartao; senha; email
             // criaCliente: nome, cpf, data, telefone, endereco, email, username, senha, cartao
             tCliente *c = criaCliente(
-                campos[0], campos[1], campos[2], campos[3], campos[4],
-                campos[8], campos[5], campos[7], campos[6]
-            );
+                            campos[0], campos[1], campos[2], campos[3], campos[4],
+                            campos[5], // email
+                            campos[6], // username
+                            campos[7], // senha
+                            campos[8]  // cartao
+                            );
+
             if (!c) continue;
 
             tStatusSistema st = adicionaCliente(s, c);
@@ -342,6 +350,163 @@ static int processaCoi(tSistema *s, char *linhaCmd) {
     return 0;
 }
 
+/* ===================== CAP  =====================  */
+static int processaCap(tSistema *s, char *linhaCmd){
+    // Formato: "CAP <CNPJ> <P|I>"
+    char buf[LINHA_TAM];
+    snprintf(buf, sizeof(buf), "%s", linhaCmd);
+
+    char *cmd = strtok(buf, " ");
+    char *cnpj = strtok(NULL, " ");
+    char *tipoStr = strtok(NULL, " ");
+
+    if(!cmd || !cnpj || !tipoStr){
+        printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
+        return 0;
+    }
+
+    char tipo = trim(tipoStr)[0];
+
+    tLoja* l = buscaLojaPorCNPJ(s, cnpj);
+    if(!l){
+        printf("LOJA SEM CADASTRO!\n");
+        return 0;
+    }
+
+    if(tipo == 'P'){
+        char linha1[LINHA_TAM], linha2[LINHA_TAM];
+        if (leLinha(linha1, sizeof(linha1))) return 1;
+        if (leLinha(linha2, sizeof(linha2))) return 1;
+
+        char *p1 = trim(linha1);
+        char *p2 = trim(linha2);
+
+        if(strcmp(p1,"OUT")==0 || strcmp(p2,"OUT")==0) return 1;
+
+        // linha1: COD; NOME; PRECO
+        char *c1[8];
+        int n1 = splitPorPontoEVirgula(p1, c1, 8);
+        if(n1 < 3 || !camposValidos(c1, 3)){
+            printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
+            return 0;
+        }
+
+        // linha2: N; ING1; ...; INGN
+        char *c2[128];
+        int n2 = splitPorPontoEVirgula(p2, c2, 128);
+        if(n2 < 2 || !camposValidos(c2, 2)){
+            printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
+            return 0;
+        }
+
+        float preco = 0.0f;
+        if(!parseFloat(c1[2], &preco)){
+            printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
+            return 0;
+        }
+
+        int N = 0;
+        if(!parseInt(c2[0], &N) || N <= 0 || n2 < N+1){
+            printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
+            return 0;
+        }
+
+        // duplicado na loja
+        if(buscaProdutoLojaPorId(l, c1[0]) != NULL){
+            printf("PRODUTO JA CADASTRADO! OPERACAO NAO PERMITIDA!\n");
+            return 0;
+        }
+
+        // valida ingredientes (existir e ter quantidade >= 1)
+        for(int i=0;i<N;i++){
+            char *nomeIng = trim(c2[i+1]);
+            if(!buscaIngredienteDisponivelPorNome(s, nomeIng, 1)){
+                printf("INGREDIENTE %s INDISPONIVEL! CADASTRO DE PRODUTO CANCELADO!\n", nomeIng);
+                return 0;
+            }
+        }
+
+        // cria prato + embrulha em produto
+        char** nomesIng = &c2[1];
+        tPrato* pr = criaPrato(s, c1[0], c1[1], preco, N, nomesIng);
+        if(!pr) return 0;
+
+        tProduto* prod = criaProduto(
+            pr,
+            imprimeFisicoPrato,
+            imprimeDigitalPrato,
+            liberaPrato,
+            getValorPrato,
+            getCodPrato,
+            getNomePrato,
+            getTipoPrato,
+            getDescPrato,
+            getDisponibilidadePrato,
+            alteraDisponibilidadePrato,
+            printaPrato
+        );
+
+        if(!prod){
+            liberaPrato(pr);
+            return 0;
+        }
+
+        if(!adicionaProdutoLoja(l, prod)){
+            printf("PRODUTO JA CADASTRADO! OPERACAO NAO PERMITIDA!\n");
+            liberaProduto(prod);
+            return 0;
+        }
+
+        printf("PRODUTO CADASTRADO COM SUCESSO!\n");
+        return 0;
+    }
+
+    if(tipo == 'I'){
+        // mantém: criaIndustrializado() lê do stdin do jeito dele
+        tIndustrializado* ind = criaIndustrializado();
+        if(!ind) return 0;
+
+        char* cod = getCodIndustrializado(ind);
+        if(!cod || cod[0]=='\0'){ liberaIndustrializado(ind); return 0; }
+
+        if(buscaProdutoLojaPorId(l, cod) != NULL){
+            printf("PRODUTO JA CADASTRADO! OPERACAO NAO PERMITIDA!\n");
+            liberaIndustrializado(ind);
+            return 0;
+        }
+
+        tProduto* prod = criaProduto(
+            ind,
+            imprimeFisicoIndustrializado,
+            imprimeDigitalIndustrializado,
+            liberaIndustrializado,
+            getValorIndustrializado,
+            getCodIndustrializado,
+            getNomeIndustrializado,
+            getTipoIndustrializado,
+            getDescIndustrializado,
+            getDisponibilidadeIndustrializado,
+            alteraDisponibilidadeIndustrializado,
+            printaIndustrializado
+        );
+
+        if(!prod){ liberaIndustrializado(ind); return 0; }
+
+        if(!adicionaProdutoLoja(l, prod)){
+            printf("PRODUTO JA CADASTRADO! OPERACAO NAO PERMITIDA!\n");
+            liberaProduto(prod);
+            return 0;
+        }
+
+        printf("PRODUTO CADASTRADO COM SUCESSO!\n");
+        return 0;
+    }
+
+    printf("TIPO DE PRODUTO INVALIDO!\n");
+    return 0;
+}
+
+
 /* ===================== MAIN ===================== */
 int main(void) {
     tSistema *s = criaSistema();
@@ -370,6 +535,11 @@ int main(void) {
             if (processaCoi(s, p)) break;
             continue;
         }
+        if (strncmp(p, "CAP", 3) == 0) {
+            if (processaCap(s, p)) break;
+            continue;
+        }
+
 
         // Demais comandos ainda não implementados nesta etapa:
         // CAP, COP, COL, APS, RPS, ECS, LSC, BAP

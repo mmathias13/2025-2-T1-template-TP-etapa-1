@@ -180,3 +180,4 @@ void printaProduto(tProduto *prod)
     if (!prod || !prod->printaProdutoCb) return;
     prod->printaProdutoCb(prod->dado);
 }
+

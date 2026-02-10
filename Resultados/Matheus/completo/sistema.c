@@ -1,4 +1,5 @@
 #include "sistema.h"
+#include "ingrediente.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -184,4 +185,47 @@ tFornecedor* getFornecedorSistema(tSistema* s, int idx){
     if (s == NULL) return NULL;
     if (idx < 0 || idx >= s->numFornecedores) return NULL;
     return s->fornecedores[idx];
+}
+
+tProduto* buscaProdutoSistemaPorCod(tSistema* s, char* cod, tLoja** lojaDona){
+    if(!s || !cod || cod[0]=='\0') return NULL;
+
+    for(int i=0;i<s->numLojas;i++){
+        tLoja* l = s->lojas[i];
+        tProduto* p = buscaProdutoLojaPorId(l, cod);
+        if(p){
+            if(lojaDona) *lojaDona = l;
+            return p;
+        }
+    }
+    return NULL;
+}
+
+tIngrediente* buscaIngredienteDisponivelPorNome(tSistema* s, char* nome, int qtdNecessaria){
+    if(!s || !nome || nome[0]=='\0' || qtdNecessaria <= 0) return NULL;
+
+    int nforn = getNumFornecedoresSistema(s);
+    for(int k=0;k<nforn;k++){
+        tFornecedor* f = getFornecedorSistema(s, k);
+        if(!f) continue;
+
+        int ning = getNumIngredientesFornecedor(f);
+        for(int i=0;i<ning;i++){
+            tIngrediente* ing = getIngredientePorIndiceFornecedor(f, i);
+            if(!ing) continue;
+
+            if(strcmp(getNomeIngrediente(ing), nome) == 0){
+                if(getQuantidadeIngrediente(ing) >= qtdNecessaria){
+                    return ing; // determinístico: primeiro que achar
+                }
+            }
+        }
+    }
+    return NULL;
+}
+
+void consomeIngredientePorNome(tSistema* s, char* nome, int qtd){
+    tIngrediente* ing = buscaIngredienteDisponivelPorNome(s, nome, qtd);
+    if(!ing) return;
+    adicionaQuantidadeIngrediente(ing, -qtd); // você pode permitir qtd negativa no seu ingrediente.c
 }

@@ -172,13 +172,13 @@ void printaPrato(void* dado){
     tPrato* p = (tPrato*)dado;
     if(!p) return;
 
-    /* imprime o miolo (sem loja), sua main já imprime "loja, " antes */
-    printf("%s,  #%s, %s, %c, R$%.2f, INGREDIENTES: ",
+    /* imprime o miolo (sem loja); produto.c completa com a avaliação média */
+    printf("%s, %s, %s, %c, R$%.2f. INGREDIENTES: ",
            p->nome, p->cod, p->desc, 'P', p->valor);
 
     for(int i=0;i<p->nIng;i++){
         printf("%s", p->ingredientes[i]);
         if(i < p->nIng-1) printf(", ");
     }
-    printf(". ");
+    printf(".");
 }

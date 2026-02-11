@@ -384,109 +384,108 @@ static int processaCap(tSistema *s, char *linhaCmd){
     }
 
     if(tipo == 'P'){
-        char linha1[LINHA_TAM], linha2[LINHA_TAM];
-        if (leLinha(linha1, sizeof(linha1))) return 1;
-        if (leLinha(linha2, sizeof(linha2))) return 1;
+        /* Para CAP P, o script de correção envia novas tentativas sem repetir o "CAP".
+           Então precisamos ficar aguardando até conseguir cadastrar ou até vir OUT/EOF. */
+        while (1) {
+            char linha1[LINHA_TAM], linha2[LINHA_TAM];
+            if (leLinha(linha1, sizeof(linha1))) return 1;
+            char *p1 = trim(linha1);
+            if (strcmp(p1, "OUT") == 0) return 1;
 
-        char *p1 = trim(linha1);
-        char *p2 = trim(linha2);
+            // linha1: COD; NOME; PRECO  OU  COD; NOME; DESC; PRECO
+            char *c1[8];
+            int n1 = splitPorPontoEVirgula(p1, c1, 8);
 
-        if(strcmp(p1,"OUT")==0 || strcmp(p2,"OUT")==0) return 1;
+            char *cod = NULL, *nome = NULL, *desc = NULL;
+            float preco = 0.0f;
 
-        // linha1: COD; NOME; PRECO  OU  COD; NOME; DESC; PRECO
-        char *c1[8];
-        int n1 = splitPorPontoEVirgula(p1, c1, 8);
+            int ok1 = 0;
+            if (n1 == 3 && camposValidos(c1, 3) && parseFloat(c1[2], &preco)) {
+                cod = c1[0];
+                nome = c1[1];
+                desc = (char*)"";
+                ok1 = 1;
+            } else if (n1 >= 4 && camposValidos(c1, 4) && parseFloat(c1[3], &preco)) {
+                cod = c1[0];
+                nome = c1[1];
+                desc = c1[2];
+                ok1 = 1;
+            }
 
-        char *cod = NULL, *nome = NULL, *desc = NULL;
-        float preco = 0.0f;
-
-        if (n1 == 3 && camposValidos(c1, 3)) {
-            cod = c1[0];
-            nome = c1[1];
-            desc = (char*)"";
-            if(!parseFloat(c1[2], &preco)){
+            if (!ok1) {
                 printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
-                return 0;
+                continue;
             }
-        } else if (n1 >= 4 && camposValidos(c1, 4)) {
-            cod = c1[0];
-            nome = c1[1];
-            desc = c1[2];
-            if(!parseFloat(c1[3], &preco)){
+
+            if (leLinha(linha2, sizeof(linha2))) return 1;
+            char *p2 = trim(linha2);
+            if (strcmp(p2, "OUT") == 0) return 1;
+
+            // linha2: N; ING1; ...
+            char *c2[128];
+            int n2 = splitPorPontoEVirgula(p2, c2, 128);
+            int N = 0;
+            if (n2 < 2 || !camposValidos(c2, 2) || !parseInt(c2[0], &N) || N <= 0 || n2 < N + 1) {
                 printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
+                continue;
+            }
+
+            if (buscaProdutoLojaPorId(l, cod) != NULL) {
+                printf("PRODUTO JA CADASTRADO! OPERACAO NAO PERMITIDA!\n");
                 return 0;
             }
-        } else {
-            printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
-            return 0;
-        }
 
-        // linha2: N; ING1; ...
-        char *c2[128];
-        int n2 = splitPorPontoEVirgula(p2, c2, 128);
-        if(n2 < 2 || !camposValidos(c2, 2)){
-            printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
-            return 0;
-        }
+            // valida disponibilidade de cada ingrediente (>=1)
+            for (int i = 0; i < N; i++) {
+                char *nomeIng = trim(c2[i + 1]);
+                if (!buscaIngredienteDisponivelPorNome(s, nomeIng, 1)) {
+                    printf("INGREDIENTE %s INDISPONIVEL! CADASTRO DE PRODUTO CANCELADO!\n", nomeIng);
+                    return 0;
+                }
+            }
 
-        int N = 0;
-        if(!parseInt(c2[0], &N) || N <= 0 || n2 < N + 1){
-            printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
-            return 0;
-        }
+            tPrato* pr = criaPrato(s, cod, nome, desc, preco, N, &c2[1]);
+            if (!pr) return 0;
 
-        if(buscaProdutoLojaPorId(l, cod) != NULL){
-            printf("PRODUTO JA CADASTRADO! OPERACAO NAO PERMITIDA!\n");
-            return 0;
-        }
+            tProduto* prod = criaProduto(
+                pr,
+                imprimeFisicoPrato,
+                imprimeDigitalPrato,
+                liberaPrato,
+                getValorPrato,
+                getCodPrato,
+                getNomePrato,
+                getTipoPrato,
+                getDescPrato,
+                getDisponibilidadePrato,
+                alteraDisponibilidadePrato,
+                printaPrato
+            );
 
-        // valida disponibilidade de cada ingrediente (>=1)
-        for(int i=0;i<N;i++){
-            char *nomeIng = trim(c2[i+1]);
-            if(!buscaIngredienteDisponivelPorNome(s, nomeIng, 1)){
-                printf("INGREDIENTE %s INDISPONIVEL! CADASTRO DE PRODUTO CANCELADO!\n", nomeIng);
+            if (!prod) {
+                liberaPrato(pr);
                 return 0;
             }
-        }
 
-        // cria prato com a assinatura certa (sistema, cod, nome, desc, preco, N, ingredientes)
-        tPrato* pr = criaPrato(s, cod, nome, desc, preco, N, &c2[1]);
-        if(!pr) return 0;
+            if (!adicionaProdutoLoja(l, prod)) {
+                printf("PRODUTO JA CADASTRADO! OPERACAO NAO PERMITIDA!\n");
+                liberaProduto(prod);
+                return 0;
+            }
 
-        tProduto* prod = criaProduto(
-            pr,
-            imprimeFisicoPrato,
-            imprimeDigitalPrato,
-            liberaPrato,
-            getValorPrato,
-            getCodPrato,
-            getNomePrato,
-            getTipoPrato,
-            getDescPrato,
-            getDisponibilidadePrato,
-            alteraDisponibilidadePrato,
-            printaPrato
-        );
-
-        if(!prod){
-            liberaPrato(pr);
+            printf("PRODUTO CADASTRADO COM SUCESSO!\n");
             return 0;
         }
-
-        if(!adicionaProdutoLoja(l, prod)){
-            printf("PRODUTO JA CADASTRADO! OPERACAO NAO PERMITIDA!\n");
-            liberaProduto(prod);
-            return 0;
-        }
-
-        printf("PRODUTO CADASTRADO COM SUCESSO!\n");
-        return 0;
     }
 
     if(tipo == 'I'){
-        // industrializado.c lê do stdin no formato dele
-        tIndustrializado* ind = criaIndustrializado();
-        if(!ind) return 0;
+        /* Para CAP I, o script de correção também tenta novamente sem repetir o "CAP" */
+        while (1) {
+            tIndustrializado* ind = criaIndustrializado();
+            if (!ind) {
+                printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
+                continue;
+            }
 
         char* cod = getCodIndustrializado(ind);
         if(!cod || cod[0]=='\0'){
@@ -526,8 +525,9 @@ static int processaCap(tSistema *s, char *linhaCmd){
             return 0;
         }
 
-        printf("PRODUTO CADASTRADO COM SUCESSO!\n");
-        return 0;
+            printf("PRODUTO CADASTRADO COM SUCESSO!\n");
+            return 0;
+        }
     }
 
     printf("TIPO DE PRODUTO INVALIDO!\n");
@@ -586,7 +586,7 @@ static int processaCop(tSistema *s, char *linhaCmd){
             if(!ok) continue;
 
             // Formato do exemplo: "<idx> -  <LOJA>, <produto...> AVALIACAO MEDIA: ..."
-            printf("%d -  %s, ", idxGlobal, getNomeLoja(l));
+            printf("%d - %s, ", idxGlobal, getNomeLoja(l));
             printaProduto(p);            // produto imprime o miolo (prato/ind) + avaliações (se você colocou isso lá)
             idxGlobal++;
         }
@@ -597,13 +597,15 @@ static int processaCop(tSistema *s, char *linhaCmd){
 
 /* ===================== COL ===================== */
 static int processaCol(tSistema *s, char *linhaCmd) {
-    (void)linhaCmd;
+    char buf[LINHA_TAM];
+    snprintf(buf, sizeof(buf), "%s", linhaCmd);
 
-    char modoLinha[LINHA_TAM];
-    if (leLinha(modoLinha, sizeof(modoLinha))) return 1; // EOF
-    char *modo = trim(modoLinha);
-
-    if (strcmp(modo, "OUT") == 0) return 1;
+    strtok(buf, " ");               // "COL"
+    char *modo = strtok(NULL, " ");
+    char *chave = strtok(NULL, ""); // resto
+    if (!modo) return 0;
+    if (chave) chave = trim(chave);
+    else chave = (char*)"";
 
     if (strcmp(modo, "TUDO") == 0) {
         int nlojas = getNumLojasSistema(s);
@@ -611,7 +613,7 @@ static int processaCol(tSistema *s, char *linhaCmd) {
             tLoja *l = getLojaSistema(s, i);
             if (!l) continue;
 
-            printf("%d - %s, %s, %s, %s.\n",
+            printf("%d - %s, %s, %s, %s\n",
                    i + 1,
                    getNomeLoja(l),
                    getCnpjLoja(l),
@@ -621,34 +623,29 @@ static int processaCol(tSistema *s, char *linhaCmd) {
         return 0;
     }
 
-    char chaveLinha[LINHA_TAM];
-    if (leLinha(chaveLinha, sizeof(chaveLinha))) return 1;
-    char *chave = trim(chaveLinha);
-
-    if (strcmp(chave, "OUT") == 0) return 1;
-
     if (strcmp(modo, "NOME_LOJA") == 0) {
         int nlojas = getNumLojasSistema(s);
+        int achou = 0;
 
         for (int i = 0; i < nlojas; i++) {
             tLoja *l = getLojaSistema(s, i);
             if (!l) continue;
-
             if (strstr(getNomeLoja(l), chave) == NULL) continue;
 
-            printf("LOJA: %s (%s)\n", getNomeLoja(l), getCnpjLoja(l));
+            achou = 1;
+
+            printf("LOJA: %s (%s): \n", getNomeLoja(l), getCnpjLoja(l));
 
             int nprod = getNumProdutosLoja(l);
             for (int j = 0; j < nprod; j++) {
                 tProduto *p = getProdutoLoja(l, j);
                 if (!p) continue;
-
                 printf("%d - ", j + 1);
                 printaProduto(p);
             }
-            return 0;
         }
 
+        (void)achou;
         return 0;
     }
 
@@ -662,23 +659,17 @@ static int processaCol(tSistema *s, char *linhaCmd) {
 
             int nprod = getNumProdutosLoja(l);
             int oferta = 0;
-
             for (int j = 0; j < nprod; j++) {
                 tProduto *p = getProdutoLoja(l, j);
                 if (!p) continue;
-
                 char *nomeP = getNomeProduto(p);
                 if (!nomeP) nomeP = (char*)"";
-
-                if (strstr(nomeP, chave) != NULL) {
-                    oferta = 1;
-                    break;
-                }
+                if (strstr(nomeP, chave) != NULL) { oferta = 1; break; }
             }
 
             if (!oferta) continue;
 
-            printf("%d - %s, %s, %s, %s.\n",
+            printf("%d - %s, %s, %s, %s\n",
                    idx,
                    getNomeLoja(l),
                    getCnpjLoja(l),
@@ -686,7 +677,6 @@ static int processaCol(tSistema *s, char *linhaCmd) {
                    getEnderecoLoja(l));
             idx++;
         }
-
         return 0;
     }
 
@@ -842,31 +832,36 @@ static int processaEcs(tSistema *s, char *linhaCmd){
     int nComprados = 0;
     int teveIndisp = 0;
 
+    /* Importante: a disponibilidade precisa considerar o consumo cumulativo.
+       Então, quando um item está disponível, já consumimos os insumos (ou estoque)
+       imediatamente, para que os próximos itens sejam avaliados com o saldo restante.
+       Na impressão da NF não consumimos novamente. */
     for(int i=0;i<n;i++){
         tProduto* p = sacolaGetProduto(sac, i);
         int qtd = sacolaGetQtd(sac, i);
 
         if(getDisponibilidadeProduto(p, qtd)){
+            /* reserva/consome agora para afetar os próximos itens */
+            alteraDisponibilidadeProduto(p, qtd);
+
             compradosP[nComprados] = p;
             compradosQ[nComprados] = qtd;
             nComprados++;
         } else {
             teveIndisp = 1;
-            printf("O PRODUTO %s ESTA INDISPONIVEL NO MOMENTO!\n", getCodProduto(p));
+            printf("PRODUTO %d ESTA INDISPONIVEL NO MOMENTO!\n", i + 1);
         }
     }
 
     if(nComprados == 0){
+        printf("COMPRA CANCELADA POR INDISPONIBILIDADE DE PRODUTOS!\n");
         free(compradosP);
         free(compradosQ);
         return 0;
     }
 
-    if(teveIndisp){
-        printf("COMPRA EFETUADA COM SUCESSO (PARCIALMENTE)!\n");
-    } else {
-        printf("COMPRA EFETUADA COM SUCESSO!\n");
-    }
+    if(teveIndisp) printf("COMPRA EFETUADA COM SUCESSO (PARCIALMENTE)!\n");
+    else printf("COMPRA EFETUADA COM SUCESSO!\n");
 
     printf("------------------------------------------\n");
     printf("NOTA FISCAL DE COMPRA:\n");
@@ -877,8 +872,6 @@ static int processaEcs(tSistema *s, char *linhaCmd){
     for(int i=0;i<nComprados;i++){
         tProduto* p = compradosP[i];
         int qtd = compradosQ[i];
-
-        alteraDisponibilidadeProduto(p, qtd);
 
         totalNF += getValorProduto(p) * (float)qtd;
 

@@ -1,6 +1,0 @@
-main.c: In function ‘processaCap’:
-main.c:403:13: error: implicit declaration of function ‘parseFloat’; did you mean ‘parseInt’? [-Werror=implicit-function-declaration]
-  403 |         if(!parseFloat(c1[2], &preco)){
-      |             ^~~~~~~~~~
-      |             parseInt
-cc1: some warnings being treated as errors

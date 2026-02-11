@@ -178,6 +178,20 @@ void printaAvaliacoesProduto(tProduto *produto)
 void printaProduto(tProduto *prod)
 {
     if (!prod || !prod->printaProdutoCb) return;
-    prod->printaProdutoCb(prod->dado);
-}
 
+    // imprime o trecho específico do produto (sem avaliação e sem '\n')
+    prod->printaProdutoCb(prod->dado);
+
+    // agora anexa a avaliação média no formato do professor
+    if (!prod->avaliacoes || prod->numAvaliacoes <= 0) {
+        printf(" AVALIACAO MEDIA: NAO DISPONIVEL.\n");
+        return;
+    }
+
+    float soma = 0.0f;
+    for (int i = 0; i < prod->numAvaliacoes; i++) {
+        soma += (float)getNotaAvaliacao(prod->avaliacoes[i]);
+    }
+
+    printf(" AVALIACAO MEDIA: %.2f.\n", soma / (float)prod->numAvaliacoes);
+}

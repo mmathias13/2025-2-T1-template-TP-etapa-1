@@ -70,6 +70,8 @@ COPIANDO OS ARQUIVOS PARA A PASTA DE RESULTADO DO ALUNO:
 	 - Copiando Respostas/Matheus/loja.c para Resultados/Matheus/completo
 	 - Copiando Respostas/Matheus/prato.c para Resultados/Matheus/main
 	 - Copiando Respostas/Matheus/prato.c para Resultados/Matheus/completo
+	 - Copiando Respostas/Matheus/sacola.c para Resultados/Matheus/main
+	 - Copiando Respostas/Matheus/sacola.c para Resultados/Matheus/completo
 	 - Copiando Respostas/Matheus/sistema.c para Resultados/Matheus/main
 	 - Copiando Respostas/Matheus/sistema.c para Resultados/Matheus/completo
 	 - Copiando Respostas/Matheus/utils.c para Resultados/Matheus/main
@@ -84,6 +86,8 @@ COPIANDO OS ARQUIVOS PARA A PASTA DE RESULTADO DO ALUNO:
  - Copiando Respostas/Matheus/loja.h para Resultados/Matheus/completo
  - Copiando Respostas/Matheus/prato.h para Resultados/Matheus/main
  - Copiando Respostas/Matheus/prato.h para Resultados/Matheus/completo
+ - Copiando Respostas/Matheus/sacola.h para Resultados/Matheus/main
+ - Copiando Respostas/Matheus/sacola.h para Resultados/Matheus/completo
  - Copiando Respostas/Matheus/sistema.h para Resultados/Matheus/main
  - Copiando Respostas/Matheus/sistema.h para Resultados/Matheus/completo
  - Copiando Respostas/Matheus/utils.h para Resultados/Matheus/main
@@ -92,9 +96,11 @@ COPIANDO OS ARQUIVOS PARA A PASTA DE RESULTADO DO ALUNO:
 
 COMPILANDO OS ARQUIVOS NA PASTA DE RESULTADO DO ALUNO:
 	 - Compilando a pasta main do aluno, gerando os .o's
-	 - Erro de compilação! Verifique os arquivos da pasta main.
+	 - Compilação dos arquivos do aluno na pasta main ok!
+	 - Arquivo de output gerado: Resultados/Matheus/main/result_compilation.txt
 	 - Compilando a pasta completo do aluno, gerando os .o's
-	 - Erro de compilação! Verifique os arquivos da pasta completo.
+	 - Compilação dos arquivos do aluno na pasta completo ok!
+	 - Arquivo de output gerado: Resultados/Matheus/completo/result_compilation.txt
 	 - Compilando a pasta avaliacao do aluno, gerando os .o's
 	 - Compilação dos arquivos do aluno na pasta avaliacao ok!
 	 - Arquivo de output gerado: Resultados/Matheus/avaliacao/result_compilation.txt
@@ -104,18 +110,16 @@ COMPILANDO OS ARQUIVOS NA PASTA DE RESULTADO DO ALUNO:
 	 - Compilando a pasta industrializado do aluno, gerando os .o's
 	 - Compilação dos arquivos do aluno na pasta industrializado ok!
 	 - Arquivo de output gerado: Resultados/Matheus/industrializado/result_compilation.txt
- - Arquivos Compilados: Erro!: 2 arquivos com erros de compilacao.
-
  - Arquivos Compilados: ok!
 
 LINKANDO OS ARQUIVOS COMPILADOS:
  - Pasta main:
  - Gerando o binário prog linkando com o(s) arquivo(s) main/*.o
- - Arquivos Linkados: Erro! Binário prog não gerado.
+ - Arquivos Linkados: Ok! Binário prog gerado com sucesso.
  - Arquivo de output gerado: Resultados/Matheus/main/result_linking.txt
  - Pasta completo:
  - Gerando o binário prog linkando com o(s) arquivo(s) completo/*.o
- - Arquivos Linkados: Erro! Binário prog não gerado.
+ - Arquivos Linkados: Ok! Binário prog gerado com sucesso.
  - Arquivo de output gerado: Resultados/Matheus/completo/result_linking.txt
  - Pasta avaliacao:
  - Gerando o binário prog linkando com o(s) arquivo(s) avaliacao/*.o
@@ -129,144 +133,177 @@ LINKANDO OS ARQUIVOS COMPILADOS:
  - Gerando o binário prog linkando com o(s) arquivo(s) industrializado/*.o
  - Arquivos Linkados: Ok! Binário prog gerado com sucesso.
  - Arquivo de output gerado: Resultados/Matheus/industrializado/result_linking.txt
- - Arquivos Linkados: Erro! 2 arquivos com erros de linkagem.
 
 EXECUTANDO O VALGRIND EM CADA CASO:
  - Pasta main / Caso 1:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/1/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 65, frees: 65, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta main / Caso 10:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/10/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 42, frees: 42, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
 	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
  - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
 	 - Nota para o Caso (máximo: .90): 0 
  - Pasta main / Caso 11:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/11/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 13, frees: 13, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta main / Caso 2:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/2/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 8, frees: 8, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta main / Caso 3:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/3/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 6, frees: 6, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta main / Caso 4:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/4/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 7, frees: 7, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta main / Caso 5:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/5/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 6, frees: 6, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta main / Caso 6:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/6/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 20, frees: 20, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
 	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
  - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
 	 - Nota para o Caso (máximo: .90): 0 
  - Pasta main / Caso 7:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/7/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 39, frees: 39, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
 	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
  - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
 	 - Nota para o Caso (máximo: .90): 0 
  - Pasta main / Caso 8:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/8/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 67, frees: 67, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
 	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
  - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
 	 - Nota para o Caso (máximo: .90): 0 
  - Pasta main / Caso 9:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/main/Casos/9/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 72, frees: 72, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
 	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
  - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
 	 - Nota para o Caso (máximo: .90): 0 
- - Nota para a pasta main (máximo 7.0) - 0 de 9.90 - 0% de 7.0: 0.
+ - Nota para a pasta main (máximo 7.0) - 5.40 de 9.90 - 54.00% de 7.0: 3.78.
  -----
  - Pasta completo / Caso 1:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/1/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 57, frees: 57, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta completo / Caso 10:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/10/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 42, frees: 42, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
 	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
  - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
 	 - Nota para o Caso (máximo: .90): 0 
  - Pasta completo / Caso 11:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/11/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 13, frees: 13, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta completo / Caso 2:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/2/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 8, frees: 8, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta completo / Caso 3:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/3/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 6, frees: 6, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta completo / Caso 4:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/4/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 7, frees: 7, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta completo / Caso 5:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/5/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 6, frees: 6, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem!
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta completo / Caso 6:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/6/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 14, frees: 14, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
 	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
  - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
 	 - Nota para o Caso (máximo: .90): 0 
  - Pasta completo / Caso 7:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/7/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 39, frees: 39, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
 	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
  - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
 	 - Nota para o Caso (máximo: .90): 0 
  - Pasta completo / Caso 8:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/8/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 43, frees: 43, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
 	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
  - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
 	 - Nota para o Caso (máximo: .90): 0 
  - Pasta completo / Caso 9:
- - Valgrind: Incorreto! Verifique se o binário prog foi gerado corretamente. Ou se o Valgrind está instalado.
+ - Arquivo de output gerado: Resultados/Matheus/completo/Casos/9/result_valgrind.txt.
+ - Valgrind: Ok! allocs: 55, frees: 55, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
 	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
  - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
 	 - Nota para o Caso (máximo: .90): 0 
- - Nota para a pasta completo (máximo 0.0) - 0 de 9.90 - 0% de 0.0: 0.
+ - Nota para a pasta completo (máximo 0.0) - 5.40 de 9.90 - 54.00% de 0.0: 0.
  -----
  - Pasta avaliacao / Caso 1:
  - Arquivo de output gerado: Resultados/Matheus/avaliacao/Casos/1/result_valgrind.txt.
@@ -426,24 +463,27 @@ EXECUTANDO O VALGRIND EM CADA CASO:
  - Arquivo de output gerado: Resultados/Matheus/produto/Casos/7/result_valgrind.txt.
  - Valgrind: Ok! allocs: 111, frees: 111, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem, exceto no número de espaços em branco
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta produto / Caso 8:
  - Arquivo de output gerado: Resultados/Matheus/produto/Casos/8/result_valgrind.txt.
  - Valgrind: Ok! allocs: 176, frees: 176, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
+	 - As saídas coincidem, exceto no número de espaços em branco
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
  - Pasta produto / Caso 9:
  - Arquivo de output gerado: Resultados/Matheus/produto/Casos/9/result_valgrind.txt.
  - Valgrind: Ok! allocs: 278, frees: 278, errors: 0 | Desconto do valgrind: 0.0%
  - Comparando saida.txt do aluno e do gabarito...
-	 - Resultado para o saida.txt: Incorreto! Peso: 0.0
- - Soma dos pesos dos arquivos: 0 (soma total) = 0 de 10.0 pontos.
-	 - Nota para o Caso (máximo: .90): 0 
- - Nota para a pasta produto (máximo 2.0) - 7.20 de 9.90 - 72.00% de 2.0: 1.44.
+	 - As saídas coincidem, exceto no número de espaços em branco
+	 - Resultado para o saida.txt: Ok! Peso: 10
+ - Soma dos pesos dos arquivos: 10.0 (soma total) = 10.00 de 10.0 pontos.
+	 - Nota para o Caso (máximo: .90): .90 
+ - Nota para a pasta produto (máximo 2.0) - 9.90 de 9.90 - 100.00% de 2.0: 2.00.
  -----
  - Pasta industrializado / Caso 1:
  - Arquivo de output gerado: Resultados/Matheus/industrializado/Casos/1/result_valgrind.txt.
@@ -540,30 +580,30 @@ RESULTADOS FINAIS
 ----------------------------------------------------------------------------
 Aluno: Matheus
  - Arquivos Esperados Corretos: 7 de 7
- - Pastas Compiladas Corretamente: 3 de 5 
- - Pastas Linkadas Corretamente: 3 de 5
+ - Pastas Compiladas Corretamente: 5 de 5 
+ - Pastas Linkadas Corretamente: 5 de 5
  - Teste main
- - Resultados corretos: 0 de 55
- - Valgrinds corretos: 0 de 11
-	 - Nota de Matheus para o teste main: 0
+ - Resultados corretos: 6 de 55
+ - Valgrinds corretos: 11 de 11
+	 - Nota de Matheus para o teste main: 3.78
  - Teste completo
- - Resultados corretos: 0 de 55
- - Valgrinds corretos: 0 de 11
+ - Resultados corretos: 6 de 55
+ - Valgrinds corretos: 11 de 11
 	 - Nota de Matheus para o teste completo: 0
  - Teste avaliacao
  - Resultados corretos: 11 de 55
  - Valgrinds corretos: 11 de 11
 	 - Nota de Matheus para o teste avaliacao: .50
  - Teste produto
- - Resultados corretos: 8 de 55
+ - Resultados corretos: 11 de 55
  - Valgrinds corretos: 11 de 11
-	 - Nota de Matheus para o teste produto: 1.44
+	 - Nota de Matheus para o teste produto: 2.00
  - Teste industrializado
  - Resultados corretos: 8 de 55
  - Valgrinds corretos: 11 de 11
 	 - Nota de Matheus para o teste industrializado: .36
- - Nota de Matheus: 0+(0)+(1.44)+(0)+(.36)+(.50)
- - Nota de Matheus: 2.30
+ - Nota de Matheus: 0+(.50)+(2.00)+(3.78)+(0)+(.36)
+ - Nota de Matheus: 6.64
 
 ----------------------------------------------------------------------------
 

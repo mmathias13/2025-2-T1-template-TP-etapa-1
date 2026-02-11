@@ -1,5 +1,5 @@
 #include "sistema.h"
-#include "ingrediente.h"
+#include "fornecedor.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -19,7 +19,6 @@ static int stringVazia(char* s){
     return (s == NULL || s[0] == '\0');
 }
 
-//Ciclo de vida
 tSistema* criaSistema(void){
     tSistema *s = (tSistema*)malloc(sizeof(tSistema));
     if (s == NULL){
@@ -40,19 +39,16 @@ tSistema* criaSistema(void){
 void liberaSistema(tSistema* s){
     if (s == NULL) return;
 
-    //Liberar clientes
     for (int i = 0; i < s->numClientes; i++){
         if (s->clientes[i] != NULL) liberaCliente(s->clientes[i]);
     }
     free(s->clientes);
 
-    //Liberar lojas
     for (int i = 0; i < s->numLojas; i++){
         if (s->lojas[i] != NULL) liberaLoja(s->lojas[i]);
     }
     free(s->lojas);
 
-    //Liberar fornecedores
     for (int i = 0; i < s->numFornecedores; i++){
         if (s->fornecedores[i] != NULL) liberaFornecedor(s->fornecedores[i]);
     }
@@ -61,7 +57,7 @@ void liberaSistema(tSistema* s){
     free(s);
 }
 
-//CLIENTES
+/* CLIENTES */
 tCliente* buscaClientePorCPF(tSistema* s, char* cpf){
     if (s == NULL || stringVazia(cpf)) return NULL;
 
@@ -103,7 +99,7 @@ tCliente* getClienteSistema(tSistema* s, int idx){
     return s->clientes[idx];
 }
 
-//LOJAS
+/* LOJAS */
 tLoja* buscaLojaPorCNPJ(tSistema* s, char* cnpj){
     if (s == NULL || stringVazia(cnpj)) return NULL;
 
@@ -145,7 +141,7 @@ tLoja* getLojaSistema(tSistema* s, int idx){
     return s->lojas[idx];
 }
 
-//FORNECEDORES
+/* FORNECEDORES */
 tFornecedor* buscaFornecedorPorCNPJ(tSistema* s, char* cnpj){
     if (s == NULL || stringVazia(cnpj)) return NULL;
 
@@ -187,6 +183,7 @@ tFornecedor* getFornecedorSistema(tSistema* s, int idx){
     return s->fornecedores[idx];
 }
 
+/* Produto global */
 tProduto* buscaProdutoSistemaPorCod(tSistema* s, char* cod, tLoja** lojaDona){
     if(!s || !cod || cod[0]=='\0') return NULL;
 
@@ -201,31 +198,18 @@ tProduto* buscaProdutoSistemaPorCod(tSistema* s, char* cod, tLoja** lojaDona){
     return NULL;
 }
 
-tIngrediente* buscaIngredienteDisponivelPorNome(tSistema* s, char* nome, int qtdNecessaria){
-    if(!s || !nome || nome[0]=='\0' || qtdNecessaria <= 0) return NULL;
+/* NOVO: usado no CAP(P) para checar ingrediente por nome */
+int buscaIngredienteDisponivelPorNome(tSistema* s, const char* nomeIng, int qtd){
+    if(!s || !nomeIng || nomeIng[0]=='\0' || qtd <= 0) return 0;
 
     int nforn = getNumFornecedoresSistema(s);
-    for(int k=0;k<nforn;k++){
-        tFornecedor* f = getFornecedorSistema(s, k);
+    for(int i=0;i<nforn;i++){
+        tFornecedor* f = getFornecedorSistema(s, i);
         if(!f) continue;
 
-        int ning = getNumIngredientesFornecedor(f);
-        for(int i=0;i<ning;i++){
-            tIngrediente* ing = getIngredientePorIndiceFornecedor(f, i);
-            if(!ing) continue;
-
-            if(strcmp(getNomeIngrediente(ing), nome) == 0){
-                if(getQuantidadeIngrediente(ing) >= qtdNecessaria){
-                    return ing; // determinístico: primeiro que achar
-                }
-            }
+        if(fornecedorTemIngredienteQtd(f, nomeIng, qtd)){
+            return 1;
         }
     }
-    return NULL;
-}
-
-void consomeIngredientePorNome(tSistema* s, char* nome, int qtd){
-    tIngrediente* ing = buscaIngredienteDisponivelPorNome(s, nome, qtd);
-    if(!ing) return;
-    adicionaQuantidadeIngrediente(ing, -qtd); // você pode permitir qtd negativa no seu ingrediente.c
+    return 0;
 }

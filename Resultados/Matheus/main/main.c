@@ -1,6 +1,5 @@
-// main.c  (até aqui: CAT, CAI, COI implementados; demais comandos ignorados)
-// Compilar (exemplo):
-// gcc -Wall -Wextra -std=c11 main.c sistema.c cliente.c loja.c fornecedor.c ingrediente.c avaliacao.c utils.c produto.c industrializado.c -o prog
+// main.c
+// gcc -Wall -Wextra -std=c11 main.c sistema.c cliente.c loja.c fornecedor.c ingrediente.c avaliacao.c utils.c produto.c industrializado.c prato.c sacola.c -o prog
 
 #include <stdio.h>
 #include <string.h>
@@ -12,9 +11,12 @@
 #include "loja.h"
 #include "fornecedor.h"
 #include "ingrediente.h"
+#include "utils.h"
+#include "sacola.h"
+#include "produto.h"
 #include "industrializado.h"
 #include "prato.h"
-#include "utils.h"   // trim()
+#include "avaliacao.h"
 
 #define LINHA_TAM 1024
 
@@ -23,15 +25,20 @@ static int processaCat(tSistema *s, char *linhaCmd);
 static int processaCai(tSistema *s, char *linhaCmd);
 static int processaCoi(tSistema *s, char *linhaCmd);
 static int processaCap(tSistema *s, char *linhaCmd);
-
+static int processaCop(tSistema *s, char *linhaCmd);
+static int processaCol(tSistema *s, char *linhaCmd);
+static int processaBap(tSistema *s, char *linhaCmd);
+static int processaAps(tSistema *s, char *linhaCmd);
+static int processaRps(tSistema *s, char *linhaCmd);
+static int processaLsc(tSistema *s, char *linhaCmd);
+static int processaEcs(tSistema *s, char *linhaCmd);
 
 static void removeQuebraLinha(char *s) {
     if (!s) return;
     s[strcspn(s, "\n")] = '\0';
 }
 
-/* Split por ';' aplicando trim em cada campo.
-   Retorna quantos campos conseguiu colocar em campos[]. */
+/* Split por ';' aplicando trim em cada campo. */
 static int splitPorPontoEVirgula(char *linha, char **campos, int maxCampos) {
     int n = 0;
     char *tok = strtok(linha, ";");
@@ -43,7 +50,6 @@ static int splitPorPontoEVirgula(char *linha, char **campos, int maxCampos) {
     return n;
 }
 
-/* Retorna 1 se todos os primeiros n campos existem e não são vazios. */
 static int camposValidos(char **campos, int n) {
     for (int i = 0; i < n; i++) {
         if (!campos[i] || campos[i][0] == '\0') return 0;
@@ -51,8 +57,6 @@ static int camposValidos(char **campos, int n) {
     return 1;
 }
 
-/* Converte string para int com validação básica.
-   Retorna 1 se ok e escreve em *out; senão 0. */
 static int parseInt(char *s, int *out) {
     if (!s) return 0;
     s = trim(s);
@@ -60,15 +64,29 @@ static int parseInt(char *s, int *out) {
 
     char *end = NULL;
     long v = strtol(s, &end, 10);
-    if (end == s) return 0;          // não converteu nada
+    if (end == s) return 0;
     while (*end && isspace((unsigned char)*end)) end++;
-    if (*end != '\0') return 0;      // sobrou lixo
+    if (*end != '\0') return 0;
 
     *out = (int)v;
     return 1;
 }
 
-/* Retorna 1 se deve encerrar (EOF), 0 se continua */
+static int parseFloat(char *s, float *out) {
+    if (!s) return 0;
+    s = trim(s);
+    if (s[0] == '\0') return 0;
+
+    char *end = NULL;
+    double v = strtod(s, &end);
+    if (end == s) return 0;
+    while (*end && isspace((unsigned char)*end)) end++;
+    if (*end != '\0') return 0;
+
+    *out = (float)v;
+    return 1;
+}
+
 static int leLinha(char *buf, int tam) {
     if (!fgets(buf, tam, stdin)) return 1; // EOF
     removeQuebraLinha(buf);
@@ -76,9 +94,8 @@ static int leLinha(char *buf, int tam) {
 }
 
 /* ===================== CAT ===================== */
-/* processa CAT. Retorna 1 se deve encerrar (OUT/EOF), 0 se continua */
 static int processaCat(tSistema *s, char *linhaCmd) {
-    char *tipo = trim(linhaCmd + 3); // depois de "CAT"
+    char *tipo = trim(linhaCmd + 3);
 
     int esperado = 0;
     enum { CAT_CLIENTE, CAT_LOJA, CAT_FORNECEDOR } modo;
@@ -93,13 +110,13 @@ static int processaCat(tSistema *s, char *linhaCmd) {
         esperado = 6;
         modo = CAT_FORNECEDOR;
     } else {
-        return 0; // ignora tipo desconhecido
+        return 0;
     }
 
     char linhaAttr[LINHA_TAM];
 
     while (1) {
-        if (leLinha(linhaAttr, sizeof(linhaAttr))) return 1; // EOF
+        if (leLinha(linhaAttr, sizeof(linhaAttr))) return 1;
         char *p = trim(linhaAttr);
         if (strcmp(p, "OUT") == 0) return 1;
 
@@ -112,15 +129,13 @@ static int processaCat(tSistema *s, char *linhaCmd) {
         }
 
         if (modo == CAT_CLIENTE) {
-            // ENTRADA: nome; cpf; data; telefone; endereco; username; cartao; senha; email
-            // criaCliente: nome, cpf, data, telefone, endereco, email, username, senha, cartao
             tCliente *c = criaCliente(
-                            campos[0], campos[1], campos[2], campos[3], campos[4],
-                            campos[5], // email
-                            campos[6], // username
-                            campos[7], // senha
-                            campos[8]  // cartao
-                            );
+                campos[0], campos[1], campos[2], campos[3], campos[4],
+                campos[5], // email
+                campos[6], // username
+                campos[7], // senha
+                campos[8]  // cartao
+            );
 
             if (!c) continue;
 
@@ -152,7 +167,6 @@ static int processaCat(tSistema *s, char *linhaCmd) {
             return 0;
         }
 
-        // CAT_FORNECEDOR
         {
             tFornecedor *f = criaFornecedor(campos[0], campos[1], campos[2], campos[3], campos[4], campos[5]);
             if (!f) continue;
@@ -172,7 +186,6 @@ static int processaCat(tSistema *s, char *linhaCmd) {
 }
 
 /* ===================== CAI ===================== */
-/* processa CAI <cnpj>. Retorna 1 se deve encerrar (OUT/EOF), 0 se continua */
 static int processaCai(tSistema *s, char *linhaCmd) {
     char *args = trim(linhaCmd + 3);
     if (args[0] == '\0') return 0;
@@ -231,14 +244,12 @@ static int processaCai(tSistema *s, char *linhaCmd) {
 }
 
 /* ===================== COI ===================== */
-/* COI NOME_FORNECEDOR <nome>  | COI ID_FORNECEDOR <cnpj> | COI NOME_INGREDIENTE <nome> */
 static int processaCoi(tSistema *s, char *linhaCmd) {
     char *args = trim(linhaCmd + 3);
     if (args[0] == '\0') return 0;
 
-    // pega o tipo (até o próximo espaço)
     char *tipo = strtok(args, " ");
-    char *chave = strtok(NULL, ""); // resto da linha (pode ter espaços)
+    char *chave = strtok(NULL, "");
     if (!tipo) return 0;
     if (chave) chave = trim(chave);
     else chave = (char*)"";
@@ -268,7 +279,6 @@ static int processaCoi(tSistema *s, char *linhaCmd) {
     }
 
     if (strcmp(tipo, "NOME_FORNECEDOR") == 0) {
-        // busca por substring (PERIM casa com "SUPERMERCADO PERIM")
         int achou = 0;
 
         int nforn = getNumFornecedoresSistema(s);
@@ -302,65 +312,65 @@ static int processaCoi(tSistema *s, char *linhaCmd) {
     }
 
     if (strcmp(tipo, "NOME_INGREDIENTE") == 0) {
-    int nforn = getNumFornecedoresSistema(s);
-    int kMatch = 1; // numeração GLOBAL dos ingredientes encontrados
+        int nforn = getNumFornecedoresSistema(s);
+        int kMatch = 1;
 
-    for (int k = 0; k < nforn; k++) {
-        tFornecedor *f = getFornecedorSistema(s, k);
-        if (!f) continue;
+        for (int k = 0; k < nforn; k++) {
+            tFornecedor *f = getFornecedorSistema(s, k);
+            if (!f) continue;
 
-        int num = getNumIngredientesFornecedor(f);
+            int num = getNumIngredientesFornecedor(f);
 
-        // verifica se este fornecedor tem algum ingrediente que casa
-        int tem = 0;
-        for (int i = 0; i < num; i++) {
-            tIngrediente *ing = getIngredientePorIndiceFornecedor(f, i);
-            if (!ing) continue;
+            int tem = 0;
+            for (int i = 0; i < num; i++) {
+                tIngrediente *ing = getIngredientePorIndiceFornecedor(f, i);
+                if (!ing) continue;
 
-            if (strstr(getNomeIngrediente(ing), chave) != NULL) {
-                tem = 1;
-                break;
+                if (strstr(getNomeIngrediente(ing), chave) != NULL) {
+                    tem = 1;
+                    break;
+                }
+            }
+            if (!tem) continue;
+
+            printf("FORNECEDOR: %s (%s)\n", getNomeFornecedor(f), getCnpjFornecedor(f));
+
+            for (int i = 0; i < num; i++) {
+                tIngrediente *ing = getIngredientePorIndiceFornecedor(f, i);
+                if (!ing) continue;
+
+                if (strstr(getNomeIngrediente(ing), chave) == NULL) continue;
+
+                printf("%d - %s, %d, %c, QUANTIDADE DISPONIVEL: %d UNIDADE(S).\n",
+                       kMatch,
+                       getNomeIngrediente(ing),
+                       getCodigoBarrasIngrediente(ing),
+                       getTipoIngrediente(ing),
+                       getQuantidadeIngrediente(ing));
+                kMatch++;
             }
         }
-        if (!tem) continue;
 
-        // imprime cabeçalho e só os ingredientes que casam
-        printf("FORNECEDOR: %s (%s)\n", getNomeFornecedor(f), getCnpjFornecedor(f));
-
-        for (int i = 0; i < num; i++) {
-            tIngrediente *ing = getIngredientePorIndiceFornecedor(f, i);
-            if (!ing) continue;
-
-            if (strstr(getNomeIngrediente(ing), chave) == NULL) continue;
-
-            printf("%d - %s, %d, %c, QUANTIDADE DISPONIVEL: %d UNIDADE(S).\n",
-                   kMatch,
-                   getNomeIngrediente(ing),
-                   getCodigoBarrasIngrediente(ing),
-                   getTipoIngrediente(ing),
-                   getQuantidadeIngrediente(ing));
-            kMatch++;
-        }
+        return 0;
     }
 
     return 0;
 }
 
-    // tipo desconhecido -> ignora
-    return 0;
-}
-
-/* ===================== CAP  =====================  */
+/* ===================== CAP ===================== */
+/* Entrada:
+   CAP <CNPJ_LOJA> P
+   COD; NOME; PRECO   OU  COD; NOME; DESC; PRECO
+   N; ING1; ING2; ... */
 static int processaCap(tSistema *s, char *linhaCmd){
-    // Formato: "CAP <CNPJ> <P|I>"
     char buf[LINHA_TAM];
     snprintf(buf, sizeof(buf), "%s", linhaCmd);
 
-    char *cmd = strtok(buf, " ");
+    strtok(buf, " ");                 // "CAP"
     char *cnpj = strtok(NULL, " ");
     char *tipoStr = strtok(NULL, " ");
 
-    if(!cmd || !cnpj || !tipoStr){
+    if(!cnpj || !tipoStr){
         printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
         return 0;
     }
@@ -383,15 +393,35 @@ static int processaCap(tSistema *s, char *linhaCmd){
 
         if(strcmp(p1,"OUT")==0 || strcmp(p2,"OUT")==0) return 1;
 
-        // linha1: COD; NOME; PRECO
+        // linha1: COD; NOME; PRECO  OU  COD; NOME; DESC; PRECO
         char *c1[8];
         int n1 = splitPorPontoEVirgula(p1, c1, 8);
-        if(n1 < 3 || !camposValidos(c1, 3)){
+
+        char *cod = NULL, *nome = NULL, *desc = NULL;
+        float preco = 0.0f;
+
+        if (n1 == 3 && camposValidos(c1, 3)) {
+            cod = c1[0];
+            nome = c1[1];
+            desc = (char*)"";
+            if(!parseFloat(c1[2], &preco)){
+                printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
+                return 0;
+            }
+        } else if (n1 >= 4 && camposValidos(c1, 4)) {
+            cod = c1[0];
+            nome = c1[1];
+            desc = c1[2];
+            if(!parseFloat(c1[3], &preco)){
+                printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
+                return 0;
+            }
+        } else {
             printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
             return 0;
         }
 
-        // linha2: N; ING1; ...; INGN
+        // linha2: N; ING1; ...
         char *c2[128];
         int n2 = splitPorPontoEVirgula(p2, c2, 128);
         if(n2 < 2 || !camposValidos(c2, 2)){
@@ -399,25 +429,18 @@ static int processaCap(tSistema *s, char *linhaCmd){
             return 0;
         }
 
-        float preco = 0.0f;
-        if(!parseFloat(c1[2], &preco)){
-            printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
-            return 0;
-        }
-
         int N = 0;
-        if(!parseInt(c2[0], &N) || N <= 0 || n2 < N+1){
+        if(!parseInt(c2[0], &N) || N <= 0 || n2 < N + 1){
             printf("ATRIBUTO(S) FALTANTE(S), FAVOR INICIAR O CADASTRO NOVAMENTE.\n");
             return 0;
         }
 
-        // duplicado na loja
-        if(buscaProdutoLojaPorId(l, c1[0]) != NULL){
+        if(buscaProdutoLojaPorId(l, cod) != NULL){
             printf("PRODUTO JA CADASTRADO! OPERACAO NAO PERMITIDA!\n");
             return 0;
         }
 
-        // valida ingredientes (existir e ter quantidade >= 1)
+        // valida disponibilidade de cada ingrediente (>=1)
         for(int i=0;i<N;i++){
             char *nomeIng = trim(c2[i+1]);
             if(!buscaIngredienteDisponivelPorNome(s, nomeIng, 1)){
@@ -426,9 +449,8 @@ static int processaCap(tSistema *s, char *linhaCmd){
             }
         }
 
-        // cria prato + embrulha em produto
-        char** nomesIng = &c2[1];
-        tPrato* pr = criaPrato(s, c1[0], c1[1], preco, N, nomesIng);
+        // cria prato com a assinatura certa (sistema, cod, nome, desc, preco, N, ingredientes)
+        tPrato* pr = criaPrato(s, cod, nome, desc, preco, N, &c2[1]);
         if(!pr) return 0;
 
         tProduto* prod = criaProduto(
@@ -462,12 +484,15 @@ static int processaCap(tSistema *s, char *linhaCmd){
     }
 
     if(tipo == 'I'){
-        // mantém: criaIndustrializado() lê do stdin do jeito dele
+        // industrializado.c lê do stdin no formato dele
         tIndustrializado* ind = criaIndustrializado();
         if(!ind) return 0;
 
         char* cod = getCodIndustrializado(ind);
-        if(!cod || cod[0]=='\0'){ liberaIndustrializado(ind); return 0; }
+        if(!cod || cod[0]=='\0'){
+            liberaIndustrializado(ind);
+            return 0;
+        }
 
         if(buscaProdutoLojaPorId(l, cod) != NULL){
             printf("PRODUTO JA CADASTRADO! OPERACAO NAO PERMITIDA!\n");
@@ -490,7 +515,10 @@ static int processaCap(tSistema *s, char *linhaCmd){
             printaIndustrializado
         );
 
-        if(!prod){ liberaIndustrializado(ind); return 0; }
+        if(!prod){
+            liberaIndustrializado(ind);
+            return 0;
+        }
 
         if(!adicionaProdutoLoja(l, prod)){
             printf("PRODUTO JA CADASTRADO! OPERACAO NAO PERMITIDA!\n");
@@ -506,6 +534,410 @@ static int processaCap(tSistema *s, char *linhaCmd){
     return 0;
 }
 
+/* ===================== COP ===================== */
+/* Exemplo:
+   COP NOME PEPERONI
+   COP TIPO P
+   COP TUDO
+*/
+static int processaCop(tSistema *s, char *linhaCmd){
+    char buf[LINHA_TAM];
+    snprintf(buf, sizeof(buf), "%s", linhaCmd);
+
+    strtok(buf, " "); // "COP"
+    char *modo = strtok(NULL, " ");
+    char *chave = strtok(NULL, ""); // resto (pode ter espaços)
+
+    if(!modo) return 0;
+
+    if(chave) chave = trim(chave);
+    else chave = (char*)"";
+
+    int idxGlobal = 1;
+
+    int nlojas = getNumLojasSistema(s);
+    for(int i=0;i<nlojas;i++){
+        tLoja* l = getLojaSistema(s, i);
+        if(!l) continue;
+
+        int nprod = getNumProdutosLoja(l);
+        for(int j=0;j<nprod;j++){
+            tProduto* p = getProdutoLoja(l, j);
+            if(!p) continue;
+
+            int ok = 0;
+
+            if(strcmp(modo, "TUDO") == 0){
+                ok = 1;
+            }
+            else if(strcmp(modo, "NOME") == 0){
+                char* nome = getNomeProduto(p);
+                if(!nome) nome = (char*)"";
+                ok = (strstr(nome, chave) != NULL);
+            }
+            else if(strcmp(modo, "TIPO") == 0){
+                char t = (chave && chave[0]) ? chave[0] : '\0';
+                ok = (getTipoProduto(p) == t);
+            }
+            else {
+                return 0; // modo desconhecido
+            }
+
+            if(!ok) continue;
+
+            // Formato do exemplo: "<idx> -  <LOJA>, <produto...> AVALIACAO MEDIA: ..."
+            printf("%d -  %s, ", idxGlobal, getNomeLoja(l));
+            printaProduto(p);            // produto imprime o miolo (prato/ind) + avaliações (se você colocou isso lá)
+            idxGlobal++;
+        }
+    }
+
+    return 0;
+}
+
+/* ===================== COL ===================== */
+static int processaCol(tSistema *s, char *linhaCmd) {
+    (void)linhaCmd;
+
+    char modoLinha[LINHA_TAM];
+    if (leLinha(modoLinha, sizeof(modoLinha))) return 1; // EOF
+    char *modo = trim(modoLinha);
+
+    if (strcmp(modo, "OUT") == 0) return 1;
+
+    if (strcmp(modo, "TUDO") == 0) {
+        int nlojas = getNumLojasSistema(s);
+        for (int i = 0; i < nlojas; i++) {
+            tLoja *l = getLojaSistema(s, i);
+            if (!l) continue;
+
+            printf("%d - %s, %s, %s, %s.\n",
+                   i + 1,
+                   getNomeLoja(l),
+                   getCnpjLoja(l),
+                   getTelefoneLoja(l),
+                   getEnderecoLoja(l));
+        }
+        return 0;
+    }
+
+    char chaveLinha[LINHA_TAM];
+    if (leLinha(chaveLinha, sizeof(chaveLinha))) return 1;
+    char *chave = trim(chaveLinha);
+
+    if (strcmp(chave, "OUT") == 0) return 1;
+
+    if (strcmp(modo, "NOME_LOJA") == 0) {
+        int nlojas = getNumLojasSistema(s);
+
+        for (int i = 0; i < nlojas; i++) {
+            tLoja *l = getLojaSistema(s, i);
+            if (!l) continue;
+
+            if (strstr(getNomeLoja(l), chave) == NULL) continue;
+
+            printf("LOJA: %s (%s)\n", getNomeLoja(l), getCnpjLoja(l));
+
+            int nprod = getNumProdutosLoja(l);
+            for (int j = 0; j < nprod; j++) {
+                tProduto *p = getProdutoLoja(l, j);
+                if (!p) continue;
+
+                printf("%d - ", j + 1);
+                printaProduto(p);
+            }
+            return 0;
+        }
+
+        return 0;
+    }
+
+    if (strcmp(modo, "NOME_PRODUTO") == 0) {
+        int nlojas = getNumLojasSistema(s);
+        int idx = 1;
+
+        for (int i = 0; i < nlojas; i++) {
+            tLoja *l = getLojaSistema(s, i);
+            if (!l) continue;
+
+            int nprod = getNumProdutosLoja(l);
+            int oferta = 0;
+
+            for (int j = 0; j < nprod; j++) {
+                tProduto *p = getProdutoLoja(l, j);
+                if (!p) continue;
+
+                char *nomeP = getNomeProduto(p);
+                if (!nomeP) nomeP = (char*)"";
+
+                if (strstr(nomeP, chave) != NULL) {
+                    oferta = 1;
+                    break;
+                }
+            }
+
+            if (!oferta) continue;
+
+            printf("%d - %s, %s, %s, %s.\n",
+                   idx,
+                   getNomeLoja(l),
+                   getCnpjLoja(l),
+                   getTelefoneLoja(l),
+                   getEnderecoLoja(l));
+            idx++;
+        }
+
+        return 0;
+    }
+
+    return 0;
+}
+
+/* ================== BAP ======================*/
+static int processaBap(tSistema *s, char *linhaCmd) {
+    char *cod = trim(linhaCmd + 3); // depois de "BAP"
+    if (!cod || cod[0] == '\0') return 0;
+
+    tLoja *lojaDona = NULL;
+    tProduto *p = buscaProdutoSistemaPorCod(s, cod, &lojaDona);
+
+    if (!p) {
+        printf("PRODUTO NAO EXISTENTE! TENTE NOVAMENTE!\n");
+        return 0;
+    }
+
+    printaAvaliacoesProduto(p);
+    return 0;
+}
+
+/* ================================= APS ===========================*/
+static int processaAps(tSistema *s, char *linhaCmd){
+    // APS <CPF> <COD> <QTD>
+    char buf[LINHA_TAM];
+    snprintf(buf, sizeof(buf), "%s", linhaCmd);
+
+    strtok(buf, " ");                 // "APS"
+    char *cpf = strtok(NULL, " ");
+    char *cod = strtok(NULL, " ");
+    char *qtdStr = strtok(NULL, " ");
+
+    if(!cpf || !cod || !qtdStr){
+        return 0;
+    }
+
+    int qtd = 0;
+    if(!parseInt(qtdStr, &qtd) || qtd <= 0){
+        return 0;
+    }
+
+    tCliente* c = buscaClientePorCPF(s, cpf);
+    if(!c){
+        printf("CLIENTE SEM CADASTRO!\n");
+        return 0;
+    }
+
+    tLoja* lojaDona = NULL;
+    tProduto* p = buscaProdutoSistemaPorCod(s, cod, &lojaDona);
+    if(!p){
+        printf("O PRODUTO NAO ESTA CADASTRADO EM NENHUMA LOJA!\n");
+        sacolaImprime(getSacolaCliente(c));
+        return 0;
+    }
+
+    sacolaAdicionaProduto(getSacolaCliente(c), p, qtd);
+    sacolaImprime(getSacolaCliente(c));
+    return 0;
+}
+
+/* ============== RPS ================*/
+static int processaRps(tSistema *s, char *linhaCmd){
+    // RPS <CPF> <COD> <QTD>
+    char buf[LINHA_TAM];
+    snprintf(buf, sizeof(buf), "%s", linhaCmd);
+
+    strtok(buf, " ");                 // "RPS"
+    char *cpf = strtok(NULL, " ");
+    char *cod = strtok(NULL, " ");
+    char *qtdStr = strtok(NULL, " ");
+
+    if(!cpf || !cod || !qtdStr){
+        return 0;
+    }
+
+    int qtd = 0;
+    if(!parseInt(qtdStr, &qtd) || qtd <= 0){
+        return 0;
+    }
+
+    tCliente* c = buscaClientePorCPF(s, cpf);
+    if(!c){
+        printf("CLIENTE SEM CADASTRO!\n");
+        return 0;
+    }
+
+    tLoja* lojaDona = NULL;
+    tProduto* p = buscaProdutoSistemaPorCod(s, cod, &lojaDona);
+    if(!p){
+        printf("O PRODUTO NAO ESTA CADASTRADO EM NENHUMA LOJA!\n");
+        return 0;
+    }
+
+    tStatusSacola st = sacolaRemoveProdutoPorCod(getSacolaCliente(c), cod, qtd);
+    if(st == SACOLA_NAO_ENCONTRADO){
+        printf("O PRODUTO NAO ESTA PRESENTE NA SACOLA DE COMPRAS!\n");
+        sacolaImprime(getSacolaCliente(c));
+        return 0;
+    }
+
+    printf("O PRODUTO FOI REMOVIDO DA SACOLA DE COMPRAS!\n");
+    sacolaImprime(getSacolaCliente(c));
+    return 0;
+}
+
+/* ==================== LSC ===============================*/
+static int processaLsc(tSistema *s, char *linhaCmd){
+    // LSC <CPF>
+    char *cpf = trim(linhaCmd + 3);
+    if(!cpf || cpf[0] == '\0') return 0;
+
+    tCliente* c = buscaClientePorCPF(s, cpf);
+    if(!c){
+        printf("CLIENTE SEM CADASTRO!\n");
+        return 0;
+    }
+
+    esvaziaSacolaCliente(c);
+    printf("SACOLA DE COMPRAS ESVAZIADA!\n");
+    return 0;
+}
+
+/* ====================== ECS =====================*/
+static int processaEcs(tSistema *s, char *linhaCmd){
+    // ECS <CPF>
+    char *cpf = trim(linhaCmd + 3);
+    if(!cpf || cpf[0]=='\0') return 0;
+
+    tCliente* c = buscaClientePorCPF(s, cpf);
+    if(!c){
+        printf("CLIENTE SEM CADASTRO!\n");
+        return 0;
+    }
+
+    tSacola* sac = getSacolaCliente(c);
+    if(!sac || sacolaGetNumItens(sac) == 0){
+        printf("SACOLA DE COMPRAS VAZIA!\n");
+        return 0;
+    }
+
+    int n = sacolaGetNumItens(sac);
+
+    tProduto** compradosP = (tProduto**)malloc(n * sizeof(tProduto*));
+    int* compradosQ = (int*)malloc(n * sizeof(int));
+    if(!compradosP || !compradosQ){
+        free(compradosP);
+        free(compradosQ);
+        return 0;
+    }
+
+    int nComprados = 0;
+    int teveIndisp = 0;
+
+    for(int i=0;i<n;i++){
+        tProduto* p = sacolaGetProduto(sac, i);
+        int qtd = sacolaGetQtd(sac, i);
+
+        if(getDisponibilidadeProduto(p, qtd)){
+            compradosP[nComprados] = p;
+            compradosQ[nComprados] = qtd;
+            nComprados++;
+        } else {
+            teveIndisp = 1;
+            printf("O PRODUTO %s ESTA INDISPONIVEL NO MOMENTO!\n", getCodProduto(p));
+        }
+    }
+
+    if(nComprados == 0){
+        free(compradosP);
+        free(compradosQ);
+        return 0;
+    }
+
+    if(teveIndisp){
+        printf("COMPRA EFETUADA COM SUCESSO (PARCIALMENTE)!\n");
+    } else {
+        printf("COMPRA EFETUADA COM SUCESSO!\n");
+    }
+
+    printf("------------------------------------------\n");
+    printf("NOTA FISCAL DE COMPRA:\n");
+    printf("------------------------------------------\n");
+
+    float totalNF = 0.0f;
+
+    for(int i=0;i<nComprados;i++){
+        tProduto* p = compradosP[i];
+        int qtd = compradosQ[i];
+
+        alteraDisponibilidadeProduto(p, qtd);
+
+        totalNF += getValorProduto(p) * (float)qtd;
+
+        imprimeFisico(p, qtd);
+        imprimeDigital(p, getEmailCliente(c), qtd);
+
+        if(i < nComprados - 1){
+            printf("------------------------------------------\n");
+        }
+    }
+
+    printf("------------------------------------------\n");
+    printf("VALOR TOTAL DA NOTA FISCAL: %.2f\n", totalNF);
+    printf("------------------------------------------\n");
+
+    for(int k=0;k<nComprados;k++){
+        const char* cod = getCodProduto(compradosP[k]);
+        sacolaRemovePorCod(sac, cod, compradosQ[k]);
+    }
+
+    printf("DESEJA REALIZAR A AVALIAÇÃO DO(S) PRODUTO(S) COMPRADO(S)? (SIM/NAO/OUT)\n");
+
+    char resp[256];
+    if(!fgets(resp, sizeof(resp), stdin)){
+        free(compradosP);
+        free(compradosQ);
+        return 1;
+    }
+    resp[strcspn(resp, "\n")] = '\0';
+    char* r = trim(resp);
+
+    if(strcmp(r, "OUT") == 0){
+        free(compradosP);
+        free(compradosQ);
+        return 1;
+    }
+
+    if(strcmp(r, "SIM") == 0){
+        for(int i=0;i<nComprados;i++){
+            tProduto* p = compradosP[i];
+
+            printf("PRODUTO %s, %s:\n", getCodProduto(p), getNomeProduto(p));
+
+            tAvaliacao* a = criaAvaliacao(getCpfCliente(c));
+            if(!a){
+                free(compradosP);
+                free(compradosQ);
+                return 1;
+            }
+
+            insereAvaliacaoProduto(p, a);
+            printf("AVALIACAO REGISTRADA COM SUCESSO!\n");
+        }
+    }
+
+    free(compradosP);
+    free(compradosQ);
+    return 0;
+}
 
 /* ===================== MAIN ===================== */
 int main(void) {
@@ -521,28 +953,19 @@ int main(void) {
         if (p[0] == '\0') continue;
         if (strcmp(p, "OUT") == 0) break;
 
-        if (strncmp(p, "CAT", 3) == 0) {
-            if (processaCat(s, p)) break;
-            continue;
-        }
+        if (strncmp(p, "CAT", 3) == 0) { if (processaCat(s, p)) break; continue; }
+        if (strncmp(p, "CAI", 3) == 0) { if (processaCai(s, p)) break; continue; }
+        if (strncmp(p, "COI", 3) == 0) { if (processaCoi(s, p)) break; continue; }
+        if (strncmp(p, "CAP", 3) == 0) { if (processaCap(s, p)) break; continue; }
+        if (strncmp(p, "COP", 3) == 0) { if (processaCop(s, p)) break; continue; }
+        if (strncmp(p, "COL", 3) == 0) { if (processaCol(s, p)) break; continue; }
+        if (strncmp(p, "BAP", 3) == 0) { if (processaBap(s, p)) break; continue; }
+        if (strncmp(p, "APS", 3) == 0) { if (processaAps(s, p)) break; continue; }
+        if (strncmp(p, "RPS", 3) == 0) { if (processaRps(s, p)) break; continue; }
+        if (strncmp(p, "LSC", 3) == 0) { if (processaLsc(s, p)) break; continue; }
+        if (strncmp(p, "ECS", 3) == 0) { if (processaEcs(s, p)) break; continue; }
 
-        if (strncmp(p, "CAI", 3) == 0) {
-            if (processaCai(s, p)) break;
-            continue;
-        }
-
-        if (strncmp(p, "COI", 3) == 0) {
-            if (processaCoi(s, p)) break;
-            continue;
-        }
-        if (strncmp(p, "CAP", 3) == 0) {
-            if (processaCap(s, p)) break;
-            continue;
-        }
-
-
-        // Demais comandos ainda não implementados nesta etapa:
-        // CAP, COP, COL, APS, RPS, ECS, LSC, BAP
+        // comandos desconhecidos: ignora
     }
 
     liberaSistema(s);

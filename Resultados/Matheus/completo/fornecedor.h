@@ -13,6 +13,13 @@ void liberaFornecedor(tFornecedor *f);
 int buscaIngredienteFornecedor(tFornecedor *f, int codigoBarras);
 void cadastraOuAtualizaIngredienteFornecedor(tFornecedor *f, tIngrediente *ing);
 
+/* NOVO: busca ingrediente por NOME (para PRATO) */
+tIngrediente* buscaIngredienteFornecedorPorNome(tFornecedor* f, const char* nome);
+
+/* NOVO: verifica e consome quantidade por nome */
+int fornecedorTemIngredienteQtd(tFornecedor* f, const char* nome, int qtd);
+int fornecedorConsomeIngredienteQtd(tFornecedor* f, const char* nome, int qtd);
+
 /* Getters básicos */
 char* getEnderecoFornecedor(tFornecedor *f);
 char* getTelefoneFornecedor(tFornecedor *f);

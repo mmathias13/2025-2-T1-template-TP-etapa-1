@@ -12,7 +12,6 @@ struct Ingrediente
 };
 
 tIngrediente* criaIngrediente(char* nome, int codigo, char tipo, int quantidade){
-
     tIngrediente *i = (tIngrediente*)malloc(sizeof(tIngrediente));
     if (i == NULL){
         printf("Erro de alocação em INGREDIENTE!\n");
@@ -32,21 +31,28 @@ void liberaIngrediente(tIngrediente* i){
 }
 
 void adicionaQuantidadeIngrediente(tIngrediente *i, int qtd){
+    if(!i) return;
     i->quantidadeIngrediente += qtd;
 }
 
+void consomeQuantidadeIngrediente(tIngrediente* i, int qtd){
+    if(!i) return;
+    i->quantidadeIngrediente -= qtd;
+    if(i->quantidadeIngrediente < 0) i->quantidadeIngrediente = 0;
+}
+
 char* getNomeIngrediente(tIngrediente* i){
-    return i->nomeIngrediente;
+    return i ? i->nomeIngrediente : NULL;
 }
 
 char getTipoIngrediente(tIngrediente* i){
-    return i->tipoIngrediente;
+    return i ? i->tipoIngrediente : '\0';
 }
 
 int getCodigoBarrasIngrediente(tIngrediente *i){
-    return i->codigoBarrasIngrediente;
+    return i ? i->codigoBarrasIngrediente : -1;
 }
 
 int getQuantidadeIngrediente(tIngrediente *i){
-    return i->quantidadeIngrediente;
+    return i ? i->quantidadeIngrediente : 0;
 }

@@ -10,17 +10,13 @@ struct Avaliacao{
     int nota;
 };
 
-static char* trim(char *s) {
+static char* trimLocal(char *s) {
     if (!s) return s;
-
-    // trim esquerda
     while (*s && isspace((unsigned char)*s)) s++;
 
-    // trim direita
     char *end = s + strlen(s);
     while (end > s && isspace((unsigned char)end[-1])) end--;
     *end = '\0';
-
     return s;
 }
 
@@ -35,47 +31,46 @@ tAvaliacao * criaAvaliacao(char * cpfUsuario){
     a->comentario[0] = '\0';
     a->nota = 0;
 
-    //Loop para leitura e processamento dos comentários
     char buffer[300];
 
     while (1) {
         if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
-            // EOF/erro: não dá pra continuar lendo avaliação
             liberaAvaliacao(a);
             return NULL;
         }
 
-        // remove '\n' se existir
         buffer[strcspn(buffer, "\n")] = '\0';
+        char* linha = trimLocal(buffer);
 
-        // valida existência de ';'
-        char *sep = strchr(buffer, ';');
+        if(strcmp(linha, "OUT") == 0){
+            liberaAvaliacao(a);
+            return NULL; /* main interpreta como saída do sistema */
+        }
+
+        char *sep = strchr(linha, ';');
         if (sep == NULL) {
             printf("AVALIACAO INVALIDA! FAVOR INICIAR A AVALIACAO NOVAMENTE!\n");
             continue;
         }
 
         *sep = '\0';
-        char *coment = trim(buffer);
-        char *notaStr = trim(sep + 1);
+        char *coment = trimLocal(linha);
+        char *notaStr = trimLocal(sep + 1);
 
         if (coment[0] == '\0' || notaStr[0] == '\0'){
             printf("AVALIACAO INVALIDA! FAVOR INICIAR A AVALIACAO NOVAMENTE!\n");
             continue;
         }
 
-        //converte nota e valida formato
         char *endptr = NULL;
         long nota = strtol(notaStr, &endptr, 10);
+        endptr = trimLocal(endptr);
 
-        //endptr deve parar no fim da string (sem lixo)
-        endptr = trim(endptr);
         if (*endptr != '\0' || nota < 1 || nota > 5){
             printf("AVALIACAO INVALIDA! FAVOR INICIAR A AVALIACAO NOVAMENTE!\n");
             continue;
         }
 
-        // copia para a struct (arrays fixos)
         strncpy(a->comentario, coment, sizeof(a->comentario) - 1);
         a->comentario[sizeof(a->comentario) - 1] = '\0';
         a->nota = (int)nota;
@@ -86,17 +81,9 @@ tAvaliacao * criaAvaliacao(char * cpfUsuario){
     return a;
 }
 
-char * getComentarioAvaliacao(tAvaliacao * a){
-    return a->comentario;
-}
-
-int getNotaAvaliacao(tAvaliacao * a){
-    return a->nota;
-}
-
-char * getCpfClienteAvaliacao(tAvaliacao * a){
-    return a->cpf;
-}
+char * getComentarioAvaliacao(tAvaliacao * a){ return a ? a->comentario : NULL; }
+int getNotaAvaliacao(tAvaliacao * a){ return a ? a->nota : 0; }
+char * getCpfClienteAvaliacao(tAvaliacao * a){ return a ? a->cpf : NULL; }
 
 void liberaAvaliacao(tAvaliacao * a){
     if (!a) return;

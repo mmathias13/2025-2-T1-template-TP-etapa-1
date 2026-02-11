@@ -1,25 +1,25 @@
 Arquivos Esperados Corretos: 7 de 7
-Pastas Compiladas Corretamente: 3 de 5 
-Pastas Linkadas Corretamente: 3 de 5
+Pastas Compiladas Corretamente: 5 de 5 
+Pastas Linkadas Corretamente: 5 de 5
 Teste main
-  - Resultados corretos: 0 de 55
-  - Valgrinds corretos: 0 de 11
-Nota de Matheus para o teste main: 0
+  - Resultados corretos: 6 de 55
+  - Valgrinds corretos: 11 de 11
+Nota de Matheus para o teste main: 3.78
 Teste completo
-  - Resultados corretos: 0 de 55
-  - Valgrinds corretos: 0 de 11
+  - Resultados corretos: 6 de 55
+  - Valgrinds corretos: 11 de 11
 Nota de Matheus para o teste completo: 0
 Teste avaliacao
   - Resultados corretos: 11 de 55
   - Valgrinds corretos: 11 de 11
 Nota de Matheus para o teste avaliacao: .50
 Teste produto
-  - Resultados corretos: 8 de 55
+  - Resultados corretos: 11 de 55
   - Valgrinds corretos: 11 de 11
-Nota de Matheus para o teste produto: 1.44
+Nota de Matheus para o teste produto: 2.00
 Teste industrializado
   - Resultados corretos: 8 de 55
   - Valgrinds corretos: 11 de 11
 Nota de Matheus para o teste industrializado: .36
-Nota de Matheus: 0+(0)+(1.44)+(0)+(.36)+(.50)
-Nota de Matheus: 2.30
+Nota de Matheus: 0+(.50)+(2.00)+(3.78)+(0)+(.36)
+Nota de Matheus: 6.64

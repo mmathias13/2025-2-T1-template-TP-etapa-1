@@ -14,40 +14,31 @@ typedef enum {
     SISTEMA_PARAM_INVALIDO = 3
 } tStatusSistema;
 
-/* Ciclo de vida */
 tSistema* criaSistema(void);
 void liberaSistema(tSistema* s);
 
-/* ======== CLIENTES ======== */
+/* CLIENTES */
 tCliente* buscaClientePorCPF(tSistema* s, char* cpf);
-
-/* Adiciona: sistema passa a ser dono do ponteiro e deve destruí-lo no final.
-   Se retornar DUPLICADO/ERRO_ALOC, o chamador continua dono e deve liberar. */
 tStatusSistema adicionaCliente(tSistema* s, tCliente* c);
-
 int getNumClientesSistema(tSistema* s);
 tCliente* getClienteSistema(tSistema* s, int idx);
 
-/* ======== LOJAS ======== */
+/* LOJAS */
 tLoja* buscaLojaPorCNPJ(tSistema* s, char* cnpj);
 tStatusSistema adicionaLoja(tSistema* s, tLoja* l);
-
 int getNumLojasSistema(tSistema* s);
 tLoja* getLojaSistema(tSistema* s, int idx);
 
-/* ======== FORNECEDORES ======== */
+/* FORNECEDORES */
 tFornecedor* buscaFornecedorPorCNPJ(tSistema* s, char* cnpj);
 tStatusSistema adicionaFornecedor(tSistema* s, tFornecedor* f);
-
 int getNumFornecedoresSistema(tSistema* s);
 tFornecedor* getFornecedorSistema(tSistema* s, int idx);
 
+/* produtos */
 tProduto* buscaProdutoSistemaPorCod(tSistema* s, char* cod, tLoja** lojaDona);
 
-// INgredientes
-tIngrediente* buscaIngredienteDisponivelPorNome(tSistema* s, char* nome, int qtdNecessaria);
-void consomeIngredientePorNome(tSistema* s, char* nome, int qtd);
-
-
+/* NOVO: usado no CAP de prato para validar ingrediente */
+int buscaIngredienteDisponivelPorNome(tSistema* s, const char* nomeIng, int qtd);
 
 #endif

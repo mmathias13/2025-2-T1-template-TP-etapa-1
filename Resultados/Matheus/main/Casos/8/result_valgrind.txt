@@ -1,0 +1,15 @@
+==76340== Memcheck, a memory error detector
+==76340== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==76340== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==76340== Command: Resultados/Matheus/main/prog Resultados/Matheus/main/Casos/8
+==76340== Parent PID: 76339
+==76340== 
+==76340== 
+==76340== HEAP SUMMARY:
+==76340==     in use at exit: 0 bytes in 0 blocks
+==76340==   total heap usage: 67 allocs, 67 frees, 13,851 bytes allocated
+==76340== 
+==76340== All heap blocks were freed -- no leaks are possible
+==76340== 
+==76340== For lists of detected and suppressed errors, rerun with: -s
+==76340== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

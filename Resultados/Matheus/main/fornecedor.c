@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Módulo do Fornecedor: cadastro e controle de estoque de ingredientes.
+
 struct Fornecedor {
     char nomeFornecedor[101];
     char cnpjFornecedor[19];
@@ -37,6 +39,9 @@ tFornecedor* criaFornecedor(char* nome, char* cnpj, char* telefone,
     return f;
 }
 
+/*
+ * Libera a memória e recursos associados a liberaFornecedor.
+ */
 void liberaFornecedor(tFornecedor *f) {
     if (!f) return;
 
@@ -47,6 +52,9 @@ void liberaFornecedor(tFornecedor *f) {
     free(f);
 }
 
+/*
+ * Função de busca: localiza um item a partir de uma chave (ex.: id/nome).
+ */
 int buscaIngredienteFornecedor(tFornecedor *f, int codigoBarras) {
     if (!f) return -1;
 
@@ -58,6 +66,9 @@ int buscaIngredienteFornecedor(tFornecedor *f, int codigoBarras) {
     return -1;
 }
 
+/*
+ * Função cadastraOuAtualizaIngredienteFornecedor.
+ */
 void cadastraOuAtualizaIngredienteFornecedor(tFornecedor *f, tIngrediente *ing) {
     if (!f || !ing) return;
 
@@ -97,6 +108,9 @@ tIngrediente* buscaIngredienteFornecedorPorNome(tFornecedor* f, const char* nome
     return NULL;
 }
 
+/*
+ * Função fornecedorTemIngredienteQtd.
+ */
 int fornecedorTemIngredienteQtd(tFornecedor* f, const char* nome, int qtd){
     if(!f || !nome || qtd <= 0) return 0;
     tIngrediente* ing = buscaIngredienteFornecedorPorNome(f, nome);
@@ -104,6 +118,9 @@ int fornecedorTemIngredienteQtd(tFornecedor* f, const char* nome, int qtd){
     return getQuantidadeIngrediente(ing) >= qtd;
 }
 
+/*
+ * Função fornecedorConsomeIngredienteQtd.
+ */
 int fornecedorConsomeIngredienteQtd(tFornecedor* f, const char* nome, int qtd){
     if(!fornecedorTemIngredienteQtd(f, nome, qtd)) return 0;
     tIngrediente* ing = buscaIngredienteFornecedorPorNome(f, nome);
@@ -114,13 +131,33 @@ int fornecedorConsomeIngredienteQtd(tFornecedor* f, const char* nome, int qtd){
 /* ===== Getters ===== */
 
 char* getEnderecoFornecedor(tFornecedor *f) { return f->enderecoFornecedor; }
+/*
+ * Acessor: retorna a informação pedida por getTelefoneFornecedor.
+ */
 char* getTelefoneFornecedor(tFornecedor *f) { return f->telefoneFornecedor; }
+/*
+ * Acessor: retorna a informação pedida por getUsuarioFornecedor.
+ */
 char* getUsuarioFornecedor(tFornecedor *f) { return f->nomeUsuarioFornecedor; }
+/*
+ * Acessor: retorna a informação pedida por getNomeFornecedor.
+ */
 char* getNomeFornecedor(tFornecedor *f) { return f->nomeFornecedor; }
+/*
+ * Acessor: retorna a informação pedida por getCnpjFornecedor.
+ */
 char* getCnpjFornecedor(tFornecedor *f) { return f->cnpjFornecedor; }
 
-int getNumIngredientesFornecedor(tFornecedor *f) { return f ? f->numIngredientes : 0; }
-
+int getNumIngredientesFornecedor(tFornecedor *f)
+{
+    if (f) {
+        return f->numIngredientes;
+    }
+    return 0;
+}
+/*
+ * Acessor: retorna a informação pedida por getIngredientePorIndiceFornecedor.
+ */
 tIngrediente* getIngredientePorIndiceFornecedor(tFornecedor *f, int idx) {
     if (!f || idx < 0 || idx >= f->numIngredientes) return NULL;
     return f->ingredientes[idx];

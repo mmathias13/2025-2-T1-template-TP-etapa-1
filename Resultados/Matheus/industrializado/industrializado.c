@@ -4,6 +4,8 @@
 #include <string.h>
 #include <ctype.h>
 
+// Produto industrializado: cadastro, estoque e impressão (consulta e nota fiscal).
+
 #define LINHA_TAM 1024
 
 struct Industrializado {

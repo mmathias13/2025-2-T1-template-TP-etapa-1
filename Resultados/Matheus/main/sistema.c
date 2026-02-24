@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Sistema (UFoodES): mantém listas de clientes/lojas/fornecedores e fornece buscas globais.
+
 struct Sistema
 {
     tCliente **clientes;
@@ -19,6 +21,10 @@ static int stringVazia(char* s){
     return (s == NULL || s[0] == '\0');
 }
 
+/*
+ * Cria e inicializa o 'banco de dados' em memória do UFoodES (clientes, lojas e
+ * fornecedores).
+ */
 tSistema* criaSistema(void){
     tSistema *s = (tSistema*)malloc(sizeof(tSistema));
     if (s == NULL){
@@ -36,6 +42,9 @@ tSistema* criaSistema(void){
     return s;
 }
 
+/*
+ * Libera a memória e recursos associados a liberaSistema.
+ */
 void liberaSistema(tSistema* s){
     if (s == NULL) return;
 
@@ -70,6 +79,9 @@ tCliente* buscaClientePorCPF(tSistema* s, char* cpf){
     return NULL;
 }
 
+/*
+ * Adiciona um item/registro, cuidando de realocação quando necessário.
+ */
 tStatusSistema adicionaCliente(tSistema* s, tCliente* c){
     if (s == NULL || c == NULL) return SISTEMA_PARAM_INVALIDO;
 
@@ -88,11 +100,17 @@ tStatusSistema adicionaCliente(tSistema* s, tCliente* c){
     return SISTEMA_OK;
 }
 
+/*
+ * Acessor: retorna a informação pedida por getNumClientesSistema.
+ */
 int getNumClientesSistema(tSistema* s){
     if (s == NULL) return 0;
     return s->numClientes;
 }
 
+/*
+ * Acessor: retorna a informação pedida por getClienteSistema.
+ */
 tCliente* getClienteSistema(tSistema* s, int idx){
     if (s == NULL) return NULL;
     if (idx < 0 || idx >= s->numClientes) return NULL;
@@ -112,6 +130,9 @@ tLoja* buscaLojaPorCNPJ(tSistema* s, char* cnpj){
     return NULL;
 }
 
+/*
+ * Adiciona um item/registro, cuidando de realocação quando necessário.
+ */
 tStatusSistema adicionaLoja(tSistema* s, tLoja* l){
     if (s == NULL || l == NULL) return SISTEMA_PARAM_INVALIDO;
 
@@ -130,11 +151,17 @@ tStatusSistema adicionaLoja(tSistema* s, tLoja* l){
     return SISTEMA_OK;
 }
 
+/*
+ * Acessor: retorna a informação pedida por getNumLojasSistema.
+ */
 int getNumLojasSistema(tSistema* s){
     if (s == NULL) return 0;
     return s->numLojas;
 }
 
+/*
+ * Acessor: retorna a informação pedida por getLojaSistema.
+ */
 tLoja* getLojaSistema(tSistema* s, int idx){
     if (s == NULL) return NULL;
     if (idx < 0 || idx >= s->numLojas) return NULL;
@@ -154,6 +181,9 @@ tFornecedor* buscaFornecedorPorCNPJ(tSistema* s, char* cnpj){
     return NULL;
 }
 
+/*
+ * Adiciona um item/registro, cuidando de realocação quando necessário.
+ */
 tStatusSistema adicionaFornecedor(tSistema* s, tFornecedor* f){
     if (s == NULL || f == NULL) return SISTEMA_PARAM_INVALIDO;
 
@@ -172,11 +202,17 @@ tStatusSistema adicionaFornecedor(tSistema* s, tFornecedor* f){
     return SISTEMA_OK;
 }
 
+/*
+ * Acessor: retorna a informação pedida por getNumFornecedoresSistema.
+ */
 int getNumFornecedoresSistema(tSistema* s){
     if (s == NULL) return 0;
     return s->numFornecedores;
 }
 
+/*
+ * Acessor: retorna a informação pedida por getFornecedorSistema.
+ */
 tFornecedor* getFornecedorSistema(tSistema* s, int idx){
     if (s == NULL) return NULL;
     if (idx < 0 || idx >= s->numFornecedores) return NULL;

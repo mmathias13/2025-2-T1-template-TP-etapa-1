@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Ingrediente: estrutura simples com nome/código/tipo/quantidade e operações de estoque.
+
 struct Ingrediente
 {
     char nomeIngrediente[101];
@@ -11,6 +13,9 @@ struct Ingrediente
     int quantidadeIngrediente;
 };
 
+/*
+ * Cria e inicializa a estrutura relacionada a ingrediente.
+ */
 tIngrediente* criaIngrediente(char* nome, int codigo, char tipo, int quantidade){
     tIngrediente *i = (tIngrediente*)malloc(sizeof(tIngrediente));
     if (i == NULL){
@@ -26,10 +31,16 @@ tIngrediente* criaIngrediente(char* nome, int codigo, char tipo, int quantidade)
     return i;
 }
 
+/*
+ * Libera a memória e recursos associados a liberaIngrediente.
+ */
 void liberaIngrediente(tIngrediente* i){
     free(i);
 }
 
+/*
+ * Adiciona um item/registro, cuidando de realocação quando necessário.
+ */
 void adicionaQuantidadeIngrediente(tIngrediente *i, int qtd){
     if(!i) return;
     i->quantidadeIngrediente += qtd;
@@ -41,18 +52,31 @@ void consomeQuantidadeIngrediente(tIngrediente* i, int qtd){
     if(i->quantidadeIngrediente < 0) i->quantidadeIngrediente = 0;
 }
 
-char* getNomeIngrediente(tIngrediente* i){
-    return i ? i->nomeIngrediente : NULL;
+char* getNomeIngrediente(tIngrediente* i)
+{
+    if (i) {
+        return i->nomeIngrediente;
+    }
+    return NULL;
 }
-
-char getTipoIngrediente(tIngrediente* i){
-    return i ? i->tipoIngrediente : '\0';
+char getTipoIngrediente(tIngrediente* i)
+{
+    if (i) {
+        return i->tipoIngrediente;
+    }
+    return '\0';
 }
-
-int getCodigoBarrasIngrediente(tIngrediente *i){
-    return i ? i->codigoBarrasIngrediente : -1;
+int getCodigoBarrasIngrediente(tIngrediente *i)
+{
+    if (i) {
+        return i->codigoBarrasIngrediente;
+    }
+    return -1;
 }
-
-int getQuantidadeIngrediente(tIngrediente *i){
-    return i ? i->quantidadeIngrediente : 0;
+int getQuantidadeIngrediente(tIngrediente *i)
+{
+    if (i) {
+        return i->quantidadeIngrediente;
+    }
+    return 0;
 }

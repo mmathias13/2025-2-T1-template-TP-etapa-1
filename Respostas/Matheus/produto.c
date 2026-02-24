@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Produto genérico: encapsula prato/industrializado e centraliza operações comuns (impressão, avaliação, etc.).
+
 struct Produto {
     void *dado;
 

@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Produto do tipo prato: depende de ingredientes e precisa validar/consumir estoque ao vender.
+
 struct Prato {
     char cod[64];
     char nome[128];
@@ -83,6 +85,9 @@ tPrato* criaPrato(tSistema* sistema, char* cod, char* nome, char* desc, float va
     return p;
 }
 
+/*
+ * Libera a memória e recursos associados a liberaPrato.
+ */
 void liberaPrato(void* dado){
     tPrato* p = (tPrato*)dado;
     if(!p) return;
@@ -91,31 +96,49 @@ void liberaPrato(void* dado){
     free(p);
 }
 
+/*
+ * Acessor: retorna a informação pedida por getValorPrato.
+ */
 float getValorPrato(void* dado){
     tPrato* p = (tPrato*)dado;
     return p ? p->valor : 0.0f;
 }
 
+/*
+ * Acessor: retorna a informação pedida por getCodPrato.
+ */
 char* getCodPrato(void* dado){
     tPrato* p = (tPrato*)dado;
     return p ? p->cod : NULL;
 }
 
+/*
+ * Acessor: retorna a informação pedida por getNomePrato.
+ */
 char* getNomePrato(void* dado){
     tPrato* p = (tPrato*)dado;
     return p ? p->nome : NULL;
 }
 
+/*
+ * Acessor: retorna a informação pedida por getTipoPrato.
+ */
 char getTipoPrato(void* dado){
     (void)dado;
     return 'P';
 }
 
+/*
+ * Acessor: retorna a informação pedida por getDescPrato.
+ */
 char* getDescPrato(void* dado){
     tPrato* p = (tPrato*)dado;
     return p ? p->desc : NULL;
 }
 
+/*
+ * Acessor: retorna a informação pedida por getDisponibilidadePrato.
+ */
 int getDisponibilidadePrato(void* dado, int qtd){
     tPrato* p = (tPrato*)dado;
     if(!p || !p->sistema || qtd <= 0) return 0;
@@ -129,6 +152,10 @@ int getDisponibilidadePrato(void* dado, int qtd){
     return 1;
 }
 
+/*
+ * Consome ingredientes necessários para atender uma compra de prato (atualiza
+ * estoques).
+ */
 void alteraDisponibilidadePrato(void* dado, int qtd){
     tPrato* p = (tPrato*)dado;
     if(!p || !p->sistema || qtd <= 0) return;
@@ -141,6 +168,9 @@ void alteraDisponibilidadePrato(void* dado, int qtd){
     }
 }
 
+/*
+ * Imprime informações relacionadas a imprimeFisicoPrato no formato esperado.
+ */
 void imprimeFisicoPrato(void* dado, int qtd){
     tPrato* p = (tPrato*)dado;
     if(!p) return;
@@ -154,6 +184,9 @@ void imprimeFisicoPrato(void* dado, int qtd){
     printf("VALOR FINAL DO PRATO: %.2f\n\n", p->valor * (float)qtd);
 }
 
+/*
+ * Imprime informações relacionadas a imprimeDigitalPrato no formato esperado.
+ */
 void imprimeDigitalPrato(void* dado, char* email, int qtd){
     tPrato* p = (tPrato*)dado;
     if(!p) return;
@@ -168,6 +201,9 @@ void imprimeDigitalPrato(void* dado, char* email, int qtd){
     printf("VALOR FINAL DO PRATO: %.2f\n", p->valor * (float)qtd);
 }
 
+/*
+ * Imprime informações relacionadas a printaPrato no formato esperado.
+ */
 void printaPrato(void* dado){
     tPrato* p = (tPrato*)dado;
     if(!p) return;

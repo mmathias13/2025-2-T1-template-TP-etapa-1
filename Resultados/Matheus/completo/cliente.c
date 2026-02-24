@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Módulo do Cliente: guarda dados pessoais, avaliações e a sacola de compras.
+
 struct Cliente{
     char nomeCompleto[101];
     char cpf[15];
@@ -51,26 +53,46 @@ tCliente* criaCliente(char* nome, char* cpf, char* data, char* telefone, char* e
     return c;
 }
 
+/*
+ * Libera a memória e recursos associados a liberaCliente.
+ */
 void liberaCliente(tCliente* c){
     if(!c) return;
     liberaSacola(c->sacola);
     free(c);
 }
 
-char* getCpfCliente(tCliente* c){
-    return c ? c->cpf : NULL;
+char* getCpfCliente(tCliente* c)
+{
+    if (c) {
+        return c->cpf;
+    }
+    return NULL;
 }
-char* getEmailCliente(tCliente* c){
-    return c ? c->email : NULL;
+char* getEmailCliente(tCliente* c)
+{
+    if (c) {
+        return c->email;
+    }
+    return NULL;
 }
-char* getNomeCliente(tCliente* c){
-    return c ? c->nomeCompleto : NULL;
+char* getNomeCliente(tCliente* c)
+{
+    if (c) {
+        return c->nomeCompleto;
+    }
+    return NULL;
 }
-
-tSacola* getSacolaCliente(tCliente* c){
-    return c ? c->sacola : NULL;
+tSacola* getSacolaCliente(tCliente* c)
+{
+    if (c) {
+        return c->sacola;
+    }
+    return NULL;
 }
-
+/*
+ * Esvazia/limpa uma estrutura (ex.: sacola), mantendo-a pronta para reuso.
+ */
 void esvaziaSacolaCliente(tCliente* c){
     if(!c || !c->sacola) return;
     sacolaEsvazia(c->sacola);

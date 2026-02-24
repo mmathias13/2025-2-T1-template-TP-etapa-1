@@ -5,6 +5,8 @@
 #include <string.h>
 
 
+// Módulo da Loja: cadastro da loja e lista de produtos oferecidos.
+
 struct Loja
 {
     char nomeLoja[101];
@@ -17,6 +19,9 @@ struct Loja
     int numProdutos;
 };
 
+/*
+ * Cria e inicializa a estrutura relacionada a loja.
+ */
 tLoja* criaLoja(char* nome, char* cnpj, char* telefone, char* endereco, char* username, char* senha){
     tLoja *l = (tLoja*)malloc(sizeof(tLoja));
     if(l == NULL){
@@ -41,6 +46,9 @@ tLoja* criaLoja(char* nome, char* cnpj, char* telefone, char* endereco, char* us
 
 
 
+/*
+ * Libera a memória e recursos associados a liberaLoja.
+ */
 void liberaLoja(tLoja* l){
     if(!l) return;
 
@@ -52,29 +60,53 @@ void liberaLoja(tLoja* l){
 }
 
 
+/*
+ * Acessor: retorna a informação pedida por getEnderecoLoja.
+ */
 char* getEnderecoLoja(tLoja *l){
     return l->enderecoLoja;
 }
+/*
+ * Acessor: retorna a informação pedida por getTelefoneLoja.
+ */
 char* getTelefoneLoja(tLoja *l){
     return l->telefoneLoja;
 }
+/*
+ * Acessor: retorna a informação pedida por getUsuarioLoja.
+ */
 char* getUsuarioLoja(tLoja *l){
     return l->nomeUsuarioLoja;
 }
+/*
+ * Acessor: retorna a informação pedida por getNomeLoja.
+ */
 char* getNomeLoja(tLoja *l){
     return l->nomeLoja;
 }
+/*
+ * Acessor: retorna a informação pedida por getCnpjLoja.
+ */
 char* getCnpjLoja(tLoja *l){
     return l->cnpjLoja;
 }
+/*
+ * Acessor: retorna a informação pedida por getNumProdutosLoja.
+ */
 int getNumProdutosLoja(tLoja *l){
     return l->numProdutos;
 }
+/*
+ * Acessor: retorna a informação pedida por getProdutoLoja.
+ */
 tProduto* getProdutoLoja(tLoja* l, int idx){
     if(!l || idx<0 || idx>=l->numProdutos) return NULL;
     return l->produtos[idx];
 }
 
+/*
+ * Função de busca: localiza um item a partir de uma chave (ex.: id/nome).
+ */
 tProduto* buscaProdutoLojaPorId(tLoja* l, char* cod){
     if(!l || !cod || cod[0]=='\0') return NULL;
     for(int i=0;i<l->numProdutos;i++){

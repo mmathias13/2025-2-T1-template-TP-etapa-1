@@ -4,6 +4,8 @@
 #include <string.h>
 #include <ctype.h>
 
+// Módulo responsável pelas avaliações: leitura/validação de comentário+nota e acesso aos campos.
+
 struct Avaliacao{
     char cpf[15];
     char comentario[201];
@@ -81,10 +83,30 @@ tAvaliacao * criaAvaliacao(char * cpfUsuario){
     return a;
 }
 
-char * getComentarioAvaliacao(tAvaliacao * a){ return a ? a->comentario : NULL; }
-int getNotaAvaliacao(tAvaliacao * a){ return a ? a->nota : 0; }
-char * getCpfClienteAvaliacao(tAvaliacao * a){ return a ? a->cpf : NULL; }
-
+char * getComentarioAvaliacao(tAvaliacao * a)
+{
+    if (a) {
+        return a->comentario;
+    }
+    return NULL;
+}
+int getNotaAvaliacao(tAvaliacao * a)
+{
+    if (a) {
+        return a->nota;
+    }
+    return 0;
+}
+char * getCpfClienteAvaliacao(tAvaliacao * a)
+{
+    if (a) {
+        return a->cpf;
+    }
+    return NULL;
+}
+/*
+ * Libera a memória e recursos associados a liberaAvaliacao.
+ */
 void liberaAvaliacao(tAvaliacao * a){
     if (!a) return;
     free(a);

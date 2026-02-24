@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Sacola de compras: lista dinâmica de itens (produto + quantidade) com impressão e atualização.
+
 typedef struct {
     tProduto* p; /* NÃO é dono */
     int qtd;
@@ -22,6 +24,9 @@ static int findIdx(tSacola* s, const char* cod){
     return -1;
 }
 
+/*
+ * Cria e inicializa a estrutura relacionada a sacola.
+ */
 tSacola* criaSacola(void){
     tSacola* s = (tSacola*)malloc(sizeof(*s));
     if(!s) return NULL;
@@ -30,24 +35,41 @@ tSacola* criaSacola(void){
     return s;
 }
 
+/*
+ * Libera a memória e recursos associados a liberaSacola.
+ */
 void liberaSacola(tSacola* s){
     if(!s) return;
     free(s->itens);
     free(s);
 }
 
-int sacolaGetNumItens(tSacola* s){ return s ? s->n : 0; }
-
+int sacolaGetNumItens(tSacola* s)
+{
+    if (s) {
+        return s->n;
+    }
+    return 0;
+}
+/*
+ * Função sacolaGetProduto.
+ */
 tProduto* sacolaGetProduto(tSacola* s, int idx){
     if(!s || idx<0 || idx>=s->n) return NULL;
     return s->itens[idx].p;
 }
 
+/*
+ * Função sacolaGetQtd.
+ */
 int sacolaGetQtd(tSacola* s, int idx){
     if(!s || idx<0 || idx>=s->n) return 0;
     return s->itens[idx].qtd;
 }
 
+/*
+ * Função sacolaTotal.
+ */
 float sacolaTotal(tSacola* s){
     if(!s) return 0.0f;
     float total = 0.0f;
@@ -57,6 +79,9 @@ float sacolaTotal(tSacola* s){
     return total;
 }
 
+/*
+ * Função sacolaImprime.
+ */
 void sacolaImprime(tSacola* s){
     printf("SACOLA DE COMPRAS:\n");
     if(!s || s->n == 0){
@@ -75,6 +100,9 @@ void sacolaImprime(tSacola* s){
     printf("(TOTAL: R$ %.2f)\n", sacolaTotal(s));
 }
 
+/*
+ * Função sacolaEsvazia.
+ */
 void sacolaEsvazia(tSacola* s){
     if(!s) return;
     free(s->itens);
@@ -82,6 +110,9 @@ void sacolaEsvazia(tSacola* s){
     s->n = 0;
 }
 
+/*
+ * Coloca um produto na sacola (se já existir, só incrementa a quantidade).
+ */
 tStatusSacola sacolaAdicionaProduto(tSacola* s, tProduto* p, int qtd){
     if(!s || !p || qtd <= 0) return SACOLA_PARAM_INVALIDO;
 
@@ -123,6 +154,9 @@ static tStatusSacola removeIndice(tSacola* s, int idx){
     return SACOLA_OK;
 }
 
+/*
+ * Função sacolaRemoveProdutoPorCod.
+ */
 tStatusSacola sacolaRemoveProdutoPorCod(tSacola* s, const char* cod, int qtd){
     if(!s || !cod || cod[0]=='\0' || qtd <= 0) return SACOLA_PARAM_INVALIDO;
 

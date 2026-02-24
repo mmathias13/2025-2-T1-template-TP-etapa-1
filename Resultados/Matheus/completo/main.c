@@ -1,3 +1,5 @@
+// Programa principal: lê comandos (CAT/CAI/CAP/...) e orquestra chamadas aos TADs do sistema.
+
 // main.c
 // gcc -Wall -Wextra -std=c11 main.c sistema.c cliente.c loja.c fornecedor.c ingrediente.c avaliacao.c utils.c produto.c industrializado.c prato.c sacola.c -o prog
 
@@ -130,7 +132,11 @@ static int processaCat(tSistema *s, char *linhaCmd) {
 
         if (modo == CAT_CLIENTE) {
             tCliente *c = criaCliente(
-                campos[0], campos[1], campos[2], campos[3], campos[4],
+                campos[0], // CPF
+                campos[1], // Nome
+                campos[2], // Telefone
+                campos[3], // Rua
+                campos[4], // número
                 campos[5], // email
                 campos[6], // username
                 campos[7], // senha
@@ -362,6 +368,9 @@ static int processaCoi(tSistema *s, char *linhaCmd) {
    CAP <CNPJ_LOJA> P
    COD; NOME; PRECO   OU  COD; NOME; DESC; PRECO
    N; ING1; ING2; ... */
+/*
+ * Trata o comando CAP (cadastro de produto) para uma loja e tipo (P/I).
+ */
 static int processaCap(tSistema *s, char *linhaCmd){
     char buf[LINHA_TAM];
     snprintf(buf, sizeof(buf), "%s", linhaCmd);
@@ -540,6 +549,9 @@ static int processaCap(tSistema *s, char *linhaCmd){
    COP TIPO P
    COP TUDO
 */
+/*
+ * Trata o comando COP (consulta de produtos) por nome, tipo ou tudo.
+ */
 static int processaCop(tSistema *s, char *linhaCmd){
     char buf[LINHA_TAM];
     snprintf(buf, sizeof(buf), "%s", linhaCmd);
